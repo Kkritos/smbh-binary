@@ -12,7 +12,7 @@
 set -uo pipefail
 : "${SMBH_ROOT:=/path/to/smbh-binary}"   # exported by submit_*.sh
 source "$SMBH_ROOT/env.sh"
-RUNDIR="$SMBH_SCRATCH/smbh_bhstar_bmaxtest"
+RUNDIR="${BHSTAR_RUNDIR:-$SMBH_SCRATCH/smbh_bhstar_bmaxtest}"   # override for quick tests (sbatch --export=ALL,BHSTAR_RUNDIR=...)
 cd "$RUNDIR" || exit 1
 
 BIN="$SMBH_BIN/smbh_binary_PN"
