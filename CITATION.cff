@@ -1,0 +1,47 @@
+# Citation metadata for this repository (https://citation-file-format.github.io).
+# TODO before/after publication: fill in the fields marked TODO.
+cff-version: 1.2.0
+message: "If you use this code or its data, please cite the paper below (preferred-citation)."
+title: "smbh-binary: three-body encounters of stellar binaries with massive black holes"
+type: software
+version: 1.0.0
+# date-released: "2026-MM-DD"            # TODO: release date of this version
+license: MIT
+repository-code: "https://github.com/Kkritos/smbh-binary"
+authors:
+  - family-names: Kritos
+    given-names: Konstantinos
+    orcid: "https://orcid.org/0000-0002-0212-3472"
+    affiliation: "Department of Physics and Astronomy, Stony Brook University, Stony Brook, NY 11794-3800, USA"
+  - family-names: Perna
+    given-names: Rosalba
+    orcid: "https://orcid.org/0000-0002-3635-5677"
+    affiliation: "Department of Physics and Astronomy, Stony Brook University, Stony Brook, NY 11794-3800, USA"
+keywords:
+  - tidal disruption events
+  - micro-TDE
+  - black hole binaries
+  - supermassive black holes
+  - three-body scattering
+# identifiers:                            # TODO: Zenodo DOIs once published
+#   - type: doi
+#     value: "10.5281/zenodo.XXXXXXX"
+#     description: "Simulation data (Zenodo)"
+preferred-citation:
+  type: article
+  title: "Double Flares from Black Hole-Star Binary Encounters with Massive Black Holes"
+  year: 2026
+  authors:
+    - family-names: Kritos
+      given-names: Konstantinos
+      orcid: "https://orcid.org/0000-0002-0212-3472"
+    - family-names: Perna
+      given-names: Rosalba
+      orcid: "https://orcid.org/0000-0002-3635-5677"
+  # journal: "TODO"                       # e.g. "The Astrophysical Journal"
+  # volume: TODO
+  # start: TODO                           # article number / first page
+  # doi: "TODO"
+  # identifiers:
+  #   - type: other
+  #     value: "arXiv:TODO"

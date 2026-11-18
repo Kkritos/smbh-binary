@@ -1,22 +1,21 @@
 #!/bin/bash
 #SBATCH -J smbh_PN_sweep
-#SBATCH --partition=long-96core
-#SBATCH -A <your-allocation>
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=96
 #SBATCH -t 1-00:00:00
-#SBATCH -e /path/to/scratch/smbh_binary_interactions/logs/err_%j.e
-#SBATCH -o /path/to/scratch/smbh_binary_interactions/logs/out_%j.o
+# Site-specific settings (log paths, partition, account) are NOT set here: the
+# submit scripts pass them to sbatch from env.local.sh (see env.local.sh.example).
+# Adjust --cpus-per-task / -t to your nodes if needed.
 
 # PN sweep: reads the shared joblist_shuffled.txt (made by submit_all.sh).
 # Chunked (1 temp file/worker) + per-run timeout 180s (stuck runs logged, not categorized).
 
 echo "=== smbh PN sweep $SLURM_JOB_ID started $(date) on $(hostname) ==="
 
-: "${SMBH_ROOT:=/path/to/smbh-binary}"   # exported by submit_*.sh
+: "${SMBH_ROOT:?SMBH_ROOT not set -- submit through the campaign submit_*.sh scripts}"
 source "$SMBH_ROOT/env.sh"
-RUNDIR="$SMBH_SCRATCH/smbh_binary_interactions"
+RUNDIR="$SMBH_SCRATCH/smbh_starstar_collisions"
 cd "$RUNDIR" || exit 1
 
 BIN="$SMBH_BIN/smbh_binary_PN"

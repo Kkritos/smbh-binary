@@ -1,15 +1,16 @@
 #!/bin/bash
 #SBATCH --job-name=bss_timing
-#SBATCH --partition=short-40core
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --time=00:20:00
-#SBATCH --output=/path/to/scratch/smbh_binary_interactions/timing_%j.out
+# Site-specific settings (log paths, partition, account) are NOT set here: the
+# submit scripts pass them to sbatch from env.local.sh (see env.local.sh.example).
+# Adjust --cpus-per-task / -t to your nodes if needed.
 
-: "${SMBH_ROOT:=/path/to/smbh-binary}"   # exported by submit_*.sh
+: "${SMBH_ROOT:?SMBH_ROOT not set -- run: source env.sh && slurm_submit simulation/timing_test.slurm ...}"
 source "$SMBH_ROOT/env.sh"
-cd "$SMBH_SCRATCH/smbh_binary_interactions"
+mkdir -p "$SMBH_SCRATCH" && cd "$SMBH_SCRATCH"
 BIN="$SMBH_BIN/smbh_binary_PN"
 
 echo "=== gentle: beta=0.5, alpha=3 ==="

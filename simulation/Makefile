@@ -3,7 +3,9 @@
 #   make pn | newt  -> one of them
 #   make SPACEHUB=/path/to/SpaceHub/src   (override the auto-detected location)
 
-SPACEHUB ?= $(firstword $(foreach d,$(HOME)/codes/SpaceHub/src $(HOME)/codes/SpaceHub/src,$(wildcard $(d)/spaceHub.hpp)))
+# SpaceHub location: $SPACEHUB if set, else what env.sh resolves (env.local.sh or
+# <repo>/external/SpaceHub/src).
+SPACEHUB ?= $(shell bash -c '. "$(CURDIR)/../env.sh" >/dev/null 2>&1; printf %s "$$SPACEHUB"')
 SPACEHUB := $(patsubst %/spaceHub.hpp,%,$(SPACEHUB))
 
 CXX      ?= g++

@@ -1,34 +1,56 @@
 # ============================================================================
 # env.sh -- single source of paths for the SmbhBinary project.
 #
-#   source /path/to/SmbhBinary/env.sh
+#   source /path/to/smbh-binary/env.sh
 #
-# Works on the Mac and on SeaWulf.  SLURM job scripts cannot locate themselves
-# (sbatch runs a spooled copy), so they read SMBH_ROOT from the environment
-# exported by the submit_*.sh scripts, falling back to the SeaWulf clone path.
-# Any variable already set in the environment wins over the defaults below.
+# Machine-specific settings (scratch directory, SpaceHub location, SLURM account
+# and partitions) go in env.local.sh next to this file.  It is gitignored; copy
+# env.local.sh.example to start.  Anything already set in the environment wins.
+#
+# SLURM job scripts cannot locate themselves (sbatch runs a spooled copy), so the
+# submit_*.sh scripts source this file and sbatch exports SMBH_ROOT to the job.
 # ============================================================================
 
-if [ -n "${BASH_SOURCE[0]:-}" ] && [ -f "$(dirname "${BASH_SOURCE[0]}")/env.sh" ]; then
-    SMBH_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# locate this file (bash or zsh) -> SMBH_ROOT
+_smbh_src=""
+if [ -n "${BASH_SOURCE[0]:-}" ]; then _smbh_src="${BASH_SOURCE[0]}"
+elif [ -n "${ZSH_VERSION:-}" ]; then eval '_smbh_src="${(%):-%x}"'
 fi
-export SMBH_ROOT="${SMBH_ROOT:-/path/to/smbh-binary}"
+if [ -n "$_smbh_src" ] && [ -f "$(dirname "$_smbh_src")/env.sh" ]; then
+    SMBH_ROOT="$(cd "$(dirname "$_smbh_src")" && pwd)"
+fi
+unset _smbh_src
+if [ -z "${SMBH_ROOT:-}" ]; then
+    echo "env.sh: cannot locate the repository; set SMBH_ROOT=/path/to/smbh-binary" >&2
+    return 1 2>/dev/null || exit 1
+fi
+export SMBH_ROOT
 
-# SpaceHub headers (external library, not part of this repo)
-if [ -z "${SPACEHUB:-}" ]; then
-    for d in "$HOME/codes/SpaceHub/src" "$HOME/codes/SpaceHub/src"; do
-        [ -f "$d/spaceHub.hpp" ] && { SPACEHUB="$d"; break; }
-    done
+# machine-specific overrides (gitignored)
+[ -f "$SMBH_ROOT/env.local.sh" ] && . "$SMBH_ROOT/env.local.sh"
+
+# SpaceHub headers (external library): default location inside the repo (gitignored)
+if [ -z "${SPACEHUB:-}" ] && [ -f "$SMBH_ROOT/external/SpaceHub/src/spaceHub.hpp" ]; then
+    SPACEHUB="$SMBH_ROOT/external/SpaceHub/src"
 fi
 export SPACEHUB
 
 export SMBH_BIN="${SMBH_BIN:-$SMBH_ROOT/simulation/bin}"     # smbh_binary_PN / smbh_binary_Newt
 export SMBH_DATA="${SMBH_DATA:-$SMBH_ROOT/data}"             # large data (gitignored)
+export SMBH_SCRATCH="${SMBH_SCRATCH:-$SMBH_ROOT/scratch}"    # campaign run directories
 
-# Scratch root for SLURM campaigns (SeaWulf).  Each campaign uses its own
-# subdirectory, e.g. $SMBH_SCRATCH/smbh_bhstar_encounters.
-if [ -z "${SMBH_SCRATCH:-}" ]; then
-    if [ -d "/path/to/scratch/$USER" ]; then SMBH_SCRATCH="/path/to/scratch/$USER"
-    else SMBH_SCRATCH="$SMBH_ROOT/scratch"; fi
-fi
-export SMBH_SCRATCH
+# SLURM settings (optional; empty = cluster default)
+export SMBH_SLURM_ACCOUNT="${SMBH_SLURM_ACCOUNT:-}"          # sbatch -A
+export SMBH_SLURM_PARTITION="${SMBH_SLURM_PARTITION:-}"      # production jobs (~1 day, many cores)
+export SMBH_SLURM_PARTITION_TEST="${SMBH_SLURM_PARTITION_TEST:-}"   # short test jobs
+
+# slurm_submit <job.slurm> <log-dir> <partition> [extra sbatch args...]
+#   Submits with log files in <log-dir> and the account from SMBH_SLURM_ACCOUNT.
+slurm_submit() {
+    local script="$1" logdir="$2" part="$3"; shift 3
+    mkdir -p "$logdir"
+    local args=(--export=ALL -o "$logdir/%x_%j.out" -e "$logdir/%x_%j.err")
+    [ -n "$part" ] && args+=(-p "$part")
+    [ -n "$SMBH_SLURM_ACCOUNT" ] && args+=(-A "$SMBH_SLURM_ACCOUNT")
+    sbatch "${args[@]}" "$@" "$script"
+}

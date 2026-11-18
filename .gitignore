@@ -4,8 +4,10 @@
 /_seawulf_snapshot/
 /scratch/
 
-# ---- build products ----
+# ---- build products / external code ----
 /simulation/bin/
+/external/
+/.venv/
 
 # ---- simulation outputs wherever they land ----
 bss_*_full.txt
@@ -27,6 +29,10 @@ Results/
 /movies/*.log
 /movies/refig_logs/
 /movies/smbh_movies.tar.gz
+
+# ---- local-only files ----
+CLAUDE.md
+env.local.sh
 
 # ---- python / jupyter / editors / OS ----
 __pycache__/

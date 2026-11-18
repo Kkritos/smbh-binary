@@ -7,7 +7,7 @@ set -euo pipefail
 #   - shuffle makes the array's contiguous shards load-balanced.
 #   - grid_meta.csv (b_max per grid point) lands in RUNDIR.
 
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)/env.sh"   # sets SMBH_ROOT, SMBH_BIN, SMBH_SCRATCH
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)/env.sh"   # sets SMBH_ROOT, SMBH_BIN, SMBH_SCRATCH, slurm_submit (reads env.local.sh)
 JOBDIR="$SMBH_ROOT/campaigns/bhstar"
 GEN="$JOBDIR/smbh_bhstar_sweep.py"
 RUNDIR="$SMBH_SCRATCH/smbh_bhstar_encounters"
@@ -25,6 +25,6 @@ shuf joblist.txt > joblist_shuffled.txt
 echo "  $(wc -l < joblist_shuffled.txt) lines -> joblist_shuffled.txt"
 
 echo "submitting 8-way array..."
-sbatch "$JOBDIR/smbh_bhstar_array.slurm"
+slurm_submit "$JOBDIR/smbh_bhstar_array.slurm" "$RUNDIR/logs" "$SMBH_SLURM_PARTITION"
 
 squeue -u "$USER"

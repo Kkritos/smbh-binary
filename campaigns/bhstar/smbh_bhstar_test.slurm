@@ -1,16 +1,15 @@
 #!/bin/bash
 #SBATCH -J smbh_bhstar_test
-#SBATCH --partition=short-96core-shared
-#SBATCH -A <your-allocation>
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=48
 #SBATCH -t 04:00:00
-#SBATCH -e /path/to/scratch/smbh_bhstar_bmaxtest/logs/err_%j.e
-#SBATCH -o /path/to/scratch/smbh_bhstar_bmaxtest/logs/out_%j.o
+# Site-specific settings (log paths, partition, account) are NOT set here: the
+# submit scripts pass them to sbatch from env.local.sh (see env.local.sh.example).
+# Adjust --cpus-per-task / -t to your nodes if needed.
 
 set -uo pipefail
-: "${SMBH_ROOT:=/path/to/smbh-binary}"   # exported by submit_*.sh
+: "${SMBH_ROOT:?SMBH_ROOT not set -- submit through the campaign submit_*.sh scripts}"
 source "$SMBH_ROOT/env.sh"
 RUNDIR="${BHSTAR_RUNDIR:-$SMBH_SCRATCH/smbh_bhstar_bmaxtest}"   # override for quick tests (sbatch --export=ALL,BHSTAR_RUNDIR=...)
 cd "$RUNDIR" || exit 1

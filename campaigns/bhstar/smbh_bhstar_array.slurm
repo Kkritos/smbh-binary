@@ -1,14 +1,13 @@
 #!/bin/bash
 #SBATCH -J smbh_bhstar_arr
-#SBATCH --partition=long-96core
-#SBATCH -A <your-allocation>
 #SBATCH --array=0-7
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=96
 #SBATCH -t 1-00:00:00
-#SBATCH -e /path/to/scratch/smbh_bhstar_encounters/logs/err_%A_%a.e
-#SBATCH -o /path/to/scratch/smbh_bhstar_encounters/logs/out_%A_%a.o
+# Site-specific settings (log paths, partition, account) are NOT set here: the
+# submit scripts pass them to sbatch from env.local.sh (see env.local.sh.example).
+# Adjust --cpus-per-task / -t to your nodes if needed.
 
 # BH-star + SMBH hyperbolic cross-section sweep (full PN) -- JOB ARRAY version.
 # Splits the shared joblist_shuffled.txt into NARR contiguous shards (one per array
@@ -21,7 +20,7 @@
 
 NARR=8                                    # <-- must match --array=0-(NARR-1) above
 
-: "${SMBH_ROOT:=/path/to/smbh-binary}"   # exported by submit_*.sh
+: "${SMBH_ROOT:?SMBH_ROOT not set -- submit through the campaign submit_*.sh scripts}"
 source "$SMBH_ROOT/env.sh"
 RUNDIR="$SMBH_SCRATCH/smbh_bhstar_encounters"
 cd "$RUNDIR" || exit 1

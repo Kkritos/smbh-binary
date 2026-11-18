@@ -1,6 +1,6 @@
 # ============================================================================
 # config.sh  --  settings for the SpaceHub (smbh_binary_PN) movie pipeline.
-# Sourced by run_scene.sh / make_movies.sh.  Defaults match Kostas' setup.
+# Sourced by run_scene.sh / make_movies.sh.
 # ============================================================================
 
 # ---- executable: built by `make -C simulation` in the repo root ---------------

@@ -13,7 +13,7 @@ every figure (and the debris figures/movies now match the `smbh_movies` layout).
 | `rp_max = max(5·r_t, 8·r_g)` → `max(10·r_t, 8·r_g)` | `pkg/scales.py` (single source), and inline in `analyze_mutde_cross_sections`, `analyze_branching`, `mutde_losscone` | the re-run doubled the outer pericenter cut; `b_max` scales with it |
 | f_μ fit coefficients `CF` **re-derived** and written to `fmu_fit.json` | `analyze_mutde_cross_sections` writes it; `mutde_losscone` reads it | the semi-analytic β_crit(ρ,e) law is refit on the new data |
 | Δt_delay scaling fit **re-derived** | `survey_delay` on the new `delay_per_event.csv` | new events |
-| branching "money plot": `b_max`-convergence panel → **appendix**, legend fills the 6th slot | `analyze_branching` | your instruction; the convergence test is a diagnostic, not a result panel |
+| branching "money plot": `b_max`-convergence panel → **appendix**, legend fills the 6th slot | `analyze_branching` | the convergence test is a diagnostic, not a result panel |
 | β panel floored at **β ≥ 0.1** (the rp10 tidal floor), without global-masking | `analyze_branching` | tidal encounters can't be shallower than `r_t/rp_max = 0.1`; β<0.1 events are only the r_g-dominated M•≳10⁹ cells and stay in the M/a/e/v panels |
 | `mutde_cellsummary.csv` now **built from the bundle** | new `pkg/reduce_cellsummary.py` | the per-cell table the cross-section/loss-cone notebooks consume |
 | science-region / loss-cone framing note | `analyze_mutde_cross_sections`, loss-cone | report μTDEs as a loss-cone **rate** (converged per-encounter P_μ × physical cut), not a bare flyby-normalized fraction |

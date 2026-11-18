@@ -2,7 +2,7 @@
 import os, sys, numpy as np, pandas as pd
 
 CSV = sys.argv[1] if len(sys.argv) > 1 else \
-      os.path.join(os.environ.get("SMBH_SCRATCH", "/path/to/scratch"),
+      os.path.join(os.environ.get("SMBH_SCRATCH", "scratch"),
                    "smbh_bhstar_bmaxtest", "smbh_bhstar_results_test.csv")
 RP_TIDAL_FAC  = float(sys.argv[2]) if len(sys.argv) > 2 else 20.0
 RP_PLUNGE_FAC = 2.0
