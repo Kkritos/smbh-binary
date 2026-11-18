@@ -10,6 +10,8 @@ SPACEHUB := $(patsubst %/spaceHub.hpp,%,$(SPACEHUB))
 
 CXX      ?= g++
 CXXFLAGS ?= -std=c++17 -O3 -pthread
+# SpaceHub 190777d6 uses uint64_t without <cstdint>; GCC >= 13 no longer includes it implicitly.
+CPPFLAGS += -include cstdint
 SRC      := smbh_binary.cpp
 BIN      := bin
 
@@ -24,10 +26,10 @@ check:
 	@echo "SpaceHub: $(SPACEHUB)"
 
 $(BIN)/smbh_binary_PN: $(SRC) | check $(BIN)
-	$(CXX) $(CXXFLAGS) -I$(SPACEHUB) $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -I$(SPACEHUB) $< -o $@
 
 $(BIN)/smbh_binary_Newt: $(SRC) | check $(BIN)
-	$(CXX) $(CXXFLAGS) -DNEWTONIAN_ONLY -I$(SPACEHUB) $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -DNEWTONIAN_ONLY -I$(SPACEHUB) $< -o $@
 
 $(BIN):
 	mkdir -p $@
