@@ -1,0 +1,7 @@
+[smbh_bhstar_sweep] mode=TEST  RP_TIDAL_FAC=20  RP_PLUNGE_FAC=2
+[smbh_bhstar_sweep] (M,a,frac) points=18  surviving (M,a,e,frac) cells=30  N_b/cell=2000  total runs=60000
+[smbh_bhstar_sweep] M_smbh: 3 pts 1000..1e+09  a_bin: 3 pts 0.1..10 AU  frac: 2 pts 0.01..1
+[smbh_bhstar_sweep] e grid (2): [0.0, 0.9]  survival-cut e<e_max(a), cap=0.995
+[smbh_bhstar_sweep] r_t,inner=0.010343 AU  (e_max: a=0.03->0.655, a=0.1->0.897, a=1->0.990)
+[smbh_bhstar_sweep] n_dyn backstop=20000; thermal weight w_e ~ 2e applied at post-processing
+[smbh_bhstar_sweep] wrote grid_meta.csv (b_max per M,a,frac) and ecc_meta.csv (e_max per a)

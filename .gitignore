@@ -1,0 +1,37 @@
+# ---- large data / local-only material ----
+/data/
+/archive/
+/_seawulf_snapshot/
+/scratch/
+
+# ---- build products ----
+/simulation/bin/
+
+# ---- simulation outputs wherever they land ----
+bss_*_full.txt
+bss_*_full.err
+Results/
+.tmp_*/
+*.h5
+*.npz
+*.mp4
+*.gif
+!analysis/bhstar_mutde/notebooks/gamma6.npz
+
+# ---- movie pipeline: rendered scenes and run logs (keep the manifest) ----
+/movies/scenes/*
+!/movies/scenes/survey/
+/movies/scenes/survey/*
+!/movies/scenes/survey/manifest.csv
+/movies/*.log
+/movies/refig_logs/
+/movies/smbh_movies.tar.gz
+
+# ---- python / jupyter / editors / OS ----
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+.claude/settings.local.json
+.vscode/
+.idea/

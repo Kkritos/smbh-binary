@@ -1,0 +1,43 @@
+#!/bin/bash
+#SBATCH -J smbh_PN_test
+#SBATCH --partition=short-40core
+#SBATCH -A <your-allocation>
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=40
+#SBATCH -t 00:30:00
+#SBATCH -e /path/to/scratch/smbh_binary_interactions/logs/err_%j.e
+#SBATCH -o /path/to/scratch/smbh_binary_interactions/logs/out_%j.o
+
+# TEST (PN): first 1000 lines of joblist.txt on 40 cores (a few minutes).
+# PREREQ: joblist.txt and logs/ exist in scratch; smbh_binary_PN compiled.
+
+echo "=== smbh PN test $SLURM_JOB_ID started $(date) on $(hostname) ==="
+
+: "${SMBH_ROOT:=/path/to/smbh-binary}"   # exported by submit_*.sh
+source "$SMBH_ROOT/env.sh"
+RUNDIR="$SMBH_SCRATCH/smbh_binary_interactions"
+cd "$RUNDIR" || exit 1
+
+BIN="$SMBH_BIN/smbh_binary_PN"
+JOBLIST="$RUNDIR/joblist.txt"
+OUT="$RUNDIR/smbh_test_PN_results.csv"
+NLINES=1000
+
+[ -f "$JOBLIST" ] || { echo "FATAL: joblist.txt missing"; exit 1; }
+[ -x "$BIN" ]     || { echo "FATAL: binary $BIN missing"; exit 1; }
+
+TMPD=$(mktemp -d "$RUNDIR/.tmp_test_PN_XXXXXX")
+trap 'rm -rf "$TMPD"' EXIT
+
+"$BIN" --header | grep '^CSV,' > "$OUT"
+
+echo "running first $NLINES sims on ${SLURM_CPUS_PER_TASK} cores..."
+head -n "$NLINES" "$JOBLIST" | \
+xargs -P "${SLURM_CPUS_PER_TASK}" -d '\n' -I{} bash -c '
+    f="$2/r_${BASHPID}_${RANDOM}.csv"
+    "$0" $1 --report 0 | grep "^CSV," >> "$f"
+' "$BIN" {} "$TMPD"
+
+cat "$TMPD"/*.csv >> "$OUT" 2>/dev/null
+echo "=== finished $(date): $(($(wc -l < "$OUT") - 1)) CSV rows in $OUT (expected $NLINES) ==="
