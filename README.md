@@ -102,4 +102,4 @@ Python: numpy, scipy, matplotlib, h5py, pandas, scikit-learn, astropy, tqdm
   with the current one will not reproduce it bit for bit.
 - `analysis/yulai2024/reproduce_fig5_Yu_Lai_2024.ipynb` is an early version whose input CSVs no
   longer exist; it is kept for its saved outputs.
-- The SpaceHub commit on SeaWulf has not been checked against the Mac's (`190777d6`).
+- SpaceHub is at the same commit on both machines: `190777d6` (checked 2026-11-17).
