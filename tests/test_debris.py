@@ -1,6 +1,9 @@
 """Polytrope sampling used to seed the debris (debris_tracer.py and mutde_lab.py)."""
 import numpy as np
-import debris_tracer as dt
+import pytest
+
+pytest.importorskip("scipy")
+import debris_tracer as dt  # noqa: E402
 from conftest import load_module
 
 

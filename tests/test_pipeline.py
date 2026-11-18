@@ -1,7 +1,10 @@
 """End-to-end check of the bundle tools on a small synthetic bundle (no real data needed)."""
 import csv, os, subprocess, sys
-import h5py, numpy as np
+import numpy as np
 import pytest
+
+h5py = pytest.importorskip("h5py")
+pytest.importorskip("scipy")
 from conftest import PKG
 
 
