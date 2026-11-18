@@ -17,6 +17,7 @@ Results/
 *.mp4
 *.gif
 !analysis/bhstar_mutde/notebooks/gamma6.npz
+!analysis/debris_mutde/figures/mutde.mp4
 
 # ---- movie pipeline: rendered scenes and run logs (keep the manifest) ----
 /movies/scenes/*

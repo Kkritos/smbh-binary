@@ -86,6 +86,14 @@ in parallel with xargs and writes `Results/<out.csv>`.
 - `analysis/yulai2024/comparison_plots.ipynb` — run from its folder; reads `data/starstar/`.
 - `analysis/debris_mutde/mutde_lab.py --help` — `--run` (needs `simulation/bin/smbh_binary_PN`),
   `--traj data/debris_mutde/s1/bss_..._full.txt` to reuse the stored dump, or `--demo`.
+  The committed outputs in `analysis/debris_mutde/figures/` reproduce bit for bit from the stored
+  dump (checked 2026-11-17; each run parses the 15 GB dump, ~27 GB RAM, 3–8 min):
+  ```bash
+  T=data/debris_mutde/s1/bss_hyperbolic_bh10_star1_i3.06878_full.txt
+  python3 analysis/debris_mutde/mutde_lab.py --traj $T --out data/debris_mutde/movie   # mutde.mp4 (default 1e4 debris)
+  python3 analysis/debris_mutde/mutde_lab.py --traj $T --still --ndeb 100000 \
+      --out data/debris_mutde/still                                                    # final_still.{png,pdf}, money_plot.png
+  ```
 
 Python: numpy, scipy, matplotlib, h5py, pandas, scikit-learn, astropy, tqdm
 (movies also: pillow, imageio-ffmpeg).
