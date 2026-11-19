@@ -108,7 +108,9 @@ def cmd_upload(a, tok):
             if have.get(name) == size:
                 print(f"[skip] {name} already uploaded"); continue
             print(f"[put ] {name}  ({size/1e9:.2f} GB)")
-            subprocess.run(["curl", "--fail", "--progress-bar", "-H", f"@{hdr}", "--upload-file", path,
+            # a stalled connection (< 50 kB/s for 2 min) aborts and the file is sent again from the start
+            subprocess.run(["curl", "--fail", "--progress-bar", "--speed-limit", "50000", "--speed-time", "120",
+                            "--retry", "5", "--retry-delay", "30", "-H", f"@{hdr}", "--upload-file", path,
                             f"{d['bucket']}/{name}", "-o", os.devnull], check=True)
     finally:
         os.remove(hdr)

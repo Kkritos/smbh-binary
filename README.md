@@ -241,6 +241,12 @@ If you use this code or data, please cite the paper (GitHub's *Cite this reposit
 and the data set: doi:[10.5281/zenodo.24372716](https://doi.org/10.5281/zenodo.24372716).
 The integrator is [SpaceHub](https://github.com/YihanWangAstro/SpaceHub) (Wang et al. 2021, MNRAS).
 
+## Acknowledgments
+
+The packaging of this repository (documentation, tests, continuous integration and release
+tooling) was prepared with the assistance of [Claude Code](https://claude.com/claude-code)
+(Anthropic).
+
 ## License
 
 Code: [MIT](LICENSE). Data on Zenodo: CC BY 4.0.
