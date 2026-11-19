@@ -23,10 +23,10 @@ keywords:
   - black hole binaries
   - supermassive black holes
   - three-body scattering
-# identifiers:                            # TODO: Zenodo DOIs once published
-#   - type: doi
-#     value: "10.5281/zenodo.XXXXXXX"
-#     description: "Simulation data (Zenodo)"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24372716"
+    description: "Simulation data (Zenodo)"
 preferred-citation:
   type: article
   title: "Double Flares from Black Hole-Star Binary Encounters with Massive Black Holes"

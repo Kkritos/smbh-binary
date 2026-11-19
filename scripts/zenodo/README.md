@@ -49,7 +49,10 @@ cannot disagree. The metadata (title, authors, ORCIDs, description, license CC B
 the GitHub repository, funding, programming languages) is in `metadata.json`; edit it and run
 `metadata` to update the draft. `metadata` overwrites edits made on the website: if you edit
 on the website, first run `pull` (saves the draft's metadata to `data/zenodo_pulled*.json`)
-and copy the changes into `metadata.json`. On the sandbox, `upload --only <names>` uploads
+and copy the changes into `metadata.json`. Exception: the funding (NASA Hubble Fellowship
+grant HST-HF2-51608.001-A) is not in Zenodo's award list, so the API rejects it; add it once
+on the website (Funding → NASA → custom award) after `create`, and do not run `metadata` after
+that, or it is removed again. On the sandbox, `upload --only <names>` uploads
 just a few small files to test the upload path.
 After the paper is out, add it under `related_identifiers` (`"relation": "isSupplementTo"`,
 the paper's DOI) and update the published record via *New version* or *Edit* on the website.

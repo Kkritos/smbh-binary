@@ -11,7 +11,7 @@ Set the record with --record or the ZENODO_RECORD environment variable.
 """
 import argparse, gzip, hashlib, json, os, shutil, sys, urllib.request
 
-ZENODO_RECORD = os.environ.get("ZENODO_RECORD", "")   # TODO: fill in once the record is published
+ZENODO_RECORD = os.environ.get("ZENODO_RECORD", "24372716")
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.environ.get("SMBH_DATA", os.path.join(ROOT, "data"))

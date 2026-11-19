@@ -3,7 +3,7 @@
 [![CI](https://github.com/Kkritos/smbh-binary/actions/workflows/ci.yml/badge.svg)](https://github.com/Kkritos/smbh-binary/actions/workflows/ci.yml)
 [![version](https://img.shields.io/badge/version-1.0.0-blue)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Data DOI](https://img.shields.io/badge/data-10.5281%2Fzenodo.XXXXXXX-blue)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![Data DOI](https://img.shields.io/badge/data-10.5281%2Fzenodo.24372716-blue)](https://doi.org/10.5281/zenodo.24372716)
 
 Code and analysis for **Kritos & Perna (2026), *Double Flares from Black Hole-Star Binary
 Encounters with Massive Black Holes*** (see [Citing](#citing)).
@@ -18,7 +18,7 @@ including post-Newtonian terms (1PN + 2PN + 2.5PN).
 - **Star–star campaign** — collision fractions compared with **Yu & Lai (2024)**, Newtonian vs PN.
 - **Movies** — animations of each outcome class (ejection/EMRI, μTDE debris, flyby, …).
 
-The simulation outputs are archived on Zenodo: **[doi:10.5281/zenodo.XXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXX)**.
+The simulation outputs are archived on Zenodo: **[doi:10.5281/zenodo.24372716](https://doi.org/10.5281/zenodo.24372716)**.
 With those files, every figure can be regenerated on a laptop without re-running the simulations.
 
 ---
@@ -38,7 +38,7 @@ present are skipped):
 
 ```bash
 python3 scripts/get_data.py --list                         # groups, sizes, what is present
-python3 scripts/get_data.py --record XXXXXXX starstar bhstar # or: ... all
+python3 scripts/get_data.py starstar bhstar                # or: ... all
 ```
 
 | group | size | needed for |
@@ -238,7 +238,7 @@ If you use this code or data, please cite the paper (GitHub's *Cite this reposit
 > K. Kritos and R. Perna (2026), *Double Flares from Black Hole-Star Binary Encounters with
 > Massive Black Holes*, in preparation.
 
-and the data set: doi:[10.5281/zenodo.XXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXX).
+and the data set: doi:[10.5281/zenodo.24372716](https://doi.org/10.5281/zenodo.24372716).
 The integrator is [SpaceHub](https://github.com/YihanWangAstro/SpaceHub) (Wang et al. 2021, MNRAS).
 
 ## License
