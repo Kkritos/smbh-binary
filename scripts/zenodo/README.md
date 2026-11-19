@@ -46,7 +46,11 @@ python3 scripts/zenodo/zenodo_upload.py publish --yes
 
 The file list comes from `scripts/get_data.py` (`GROUPS`), so the uploader and the downloader
 cannot disagree. The metadata (title, authors, ORCIDs, description, license CC BY 4.0, link to
-the GitHub repository) is in `metadata.json`; edit it and run `metadata` to update the draft.
+the GitHub repository, funding, programming languages) is in `metadata.json`; edit it and run
+`metadata` to update the draft. `metadata` overwrites edits made on the website: if you edit
+on the website, first run `pull` (saves the draft's metadata to `data/zenodo_pulled*.json`)
+and copy the changes into `metadata.json`. On the sandbox, `upload --only <names>` uploads
+just a few small files to test the upload path.
 After the paper is out, add it under `related_identifiers` (`"relation": "isSupplementTo"`,
 the paper's DOI) and update the published record via *New version* or *Edit* on the website.
 

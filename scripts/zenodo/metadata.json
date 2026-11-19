@@ -14,7 +14,7 @@
         "orcid": "0000-0002-3635-5677"
       }
     ],
-    "description": "<p>Three-body scattering simulations of stellar binaries (black hole + star, and star + star) encountering a massive black hole, integrated with the SpaceHub code including post-Newtonian terms (1PN, 2PN, 2.5PN). These files reproduce all figures of Kritos &amp; Perna (2026) with the code at <a href=\"https://github.com/Kkritos/smbh-binary\">github.com/Kkritos/smbh-binary</a> (version 1.0.0); <code>python3 scripts/get_data.py all</code> there downloads them into the expected folders.</p><ul><li><b>smbh_bhstar_bundle.h5</b> (HDF5, ~10 GB): main BH&ndash;star campaign. One row per encounter (~1500 realizations per grid cell over SMBH mass, binary separation, eccentricity and v<sub>&infin;</sub>/v<sub>orb</sub>), with outcomes and, for micro-TDEs, the disruption-time phase space. Outer pericenter cut r<sub>p,max</sub> = max(10 r<sub>t</sub>, 8 r<sub>g</sub>).</li><li><b>delay_per_event.csv</b>, <b>delay_cellsummary.csv</b>: double-flare delay per micro-TDE and per grid cell, derived from the bundle.</li><li><b>smbh_bhstar_bundle_750.h5</b> (~5 GB): first BH&ndash;star campaign (r<sub>p,max</sub> = 5 r<sub>t</sub>, 750 realizations per cell), used for a convergence comparison.</li><li><b>smbh_starstar_collisions_Newt_results.csv</b>, <b>smbh_starstar_collisions_PN_results.csv</b>: star&ndash;star encounters (312k each, Newtonian and post-Newtonian) for the comparison with Yu &amp; Lai (2024).</li><li><b>bss_hyperbolic_bh10_star1_i3.06878_full.txt.gz</b> (~14 GB uncompressed): full SpaceHub trajectory of the representative micro-TDE encounter used for the debris movie and figure.</li></ul>",
+    "description": "<p>Three-body scattering simulations of stellar binaries (black hole + star, and star + star) encountering a massive black hole, integrated with the <a href=\"https://github.com/YihanWangAstro/SpaceHub\">SpaceHub</a> code including post-Newtonian terms (1PN, 2PN, 2.5PN). These files reproduce all figures of Kritos &amp; Perna (2026) with the code at <a href=\"https://github.com/Kkritos/smbh-binary\">github.com/Kkritos/smbh-binary</a> (version 1.0.0); <code>python3 scripts/get_data.py all</code> there downloads them into the expected folders.</p>\n<ul>\n<li><strong>smbh_bhstar_bundle.h5</strong> (HDF5, ~10 GB): main BH&ndash;star campaign. One row per encounter (~1500 realizations per grid cell over SMBH mass, binary separation, eccentricity and v<sub>&infin;</sub>/v<sub>orb</sub>), with outcomes and, for micro-TDEs, the disruption-time phase space. Outer pericenter cut r<sub>p,max</sub> = max(10 r<sub>t</sub>, 8 r<sub>g</sub>).</li>\n<li><strong>delay_per_event.csv</strong>, <strong>delay_cellsummary.csv</strong>: double-flare delay per micro-TDE and per grid cell, derived from the bundle.</li>\n<li><strong>smbh_bhstar_bundle_750.h5</strong> (~5 GB): first BH&ndash;star campaign (r<sub>p,max</sub> = 5 r<sub>t</sub>, 750 realizations per cell), used for a convergence comparison.</li>\n<li><strong>smbh_starstar_collisions_Newt_results.csv</strong>, <strong>smbh_starstar_collisions_PN_results.csv</strong>: star&ndash;star encounters (312k each, Newtonian and post-Newtonian) for the comparison with Yu &amp; Lai (2024).</li>\n<li><strong>bss_hyperbolic_bh10_star1_i3.06878_full.txt.gz</strong> (~14 GB uncompressed): full SpaceHub trajectory of the representative micro-TDE encounter used for the debris movie and figure.</li>\n</ul>",
     "access_right": "open",
     "license": "cc-by-4.0",
     "version": "1.0.0",
@@ -34,6 +34,22 @@
         "resource_type": "software"
       }
     ],
-    "notes": "Paper reference to be added on publication."
+    "notes": "Paper reference to be added on publication.",
+    "grants": [
+      {
+        "id": "027ka1x80::HST-HF2-51608.001-A"
+      }
+    ],
+    "custom": {
+      "code:codeRepository": "https://github.com/Kkritos/smbh-binary",
+      "code:programmingLanguage": [
+        {
+          "id": "python"
+        },
+        {
+          "id": "c++"
+        }
+      ]
+    }
   }
 }

@@ -89,7 +89,13 @@ def cmd_upload(a, tok):
     d = load_draft(a.sandbox)
     have = {f["filename"]: f["filesize"]
             for f in call("GET", f"{api_base(a.sandbox)}/deposit/depositions/{d['id']}/files", tok)}
-    missing = [p for _, p in local_files() if not os.path.exists(p)]
+    todo = local_files()
+    if a.only:
+        unknown = set(a.only) - {n for n, _ in todo}
+        if unknown:
+            sys.exit(f"--only: not in the file list: {sorted(unknown)}")
+        todo = [(n, p) for n, p in todo if n in a.only]
+    missing = [p for _, p in todo if not os.path.exists(p)]
     if missing:
         msg = "\n  ".join(missing)
         sys.exit(f"Missing local files:\n  {msg}\n(.gz files: create them with `gzip -k <file>` first.)")
@@ -97,7 +103,7 @@ def cmd_upload(a, tok):
         h.write(f"Authorization: Bearer {tok}\n"); hdr = h.name
     os.chmod(hdr, 0o600)
     try:
-        for name, path in local_files():
+        for name, path in todo:
             size = os.path.getsize(path)
             if have.get(name) == size:
                 print(f"[skip] {name} already uploaded"); continue
@@ -134,6 +140,18 @@ def cmd_status(a, tok):
         print(f"not yet uploaded: {sorted(gone)}")
 
 
+def cmd_pull(a, tok):
+    """Save the draft's current metadata (including edits made on the website) for review."""
+    d = load_draft(a.sandbox)
+    tag = "_sandbox" if a.sandbox else ""
+    legacy = call("GET", f"{api_base(a.sandbox)}/deposit/depositions/{d['id']}", tok)
+    rdm = call("GET", f"{api_base(a.sandbox)}/records/{d['id']}/draft", tok)
+    for kind, obj in (("legacy", legacy), ("rdm", rdm)):
+        p = os.path.join(DATA, f"zenodo_pulled{tag}_{kind}.json")
+        json.dump(obj, open(p, "w"), indent=2)
+        print(f"saved {p}")
+
+
 def cmd_publish(a, tok):
     if not a.yes:
         sys.exit("Publishing is irreversible (files can no longer change). Re-run with --yes.")
@@ -144,14 +162,15 @@ def cmd_publish(a, tok):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["create", "upload", "metadata", "status", "publish"])
+    ap.add_argument("command", choices=["create", "upload", "metadata", "status", "pull", "publish"])
     ap.add_argument("--sandbox", action="store_true", help="use sandbox.zenodo.org (rehearsal)")
     ap.add_argument("--force", action="store_true", help="create: start a new draft even if one is recorded")
     ap.add_argument("--yes", action="store_true", help="publish: confirm")
+    ap.add_argument("--only", nargs="+", metavar="NAME", help="upload: only these file names (e.g. a small sandbox test)")
     a = ap.parse_args()
     tok = token(a.sandbox)
     {"create": cmd_create, "upload": cmd_upload, "metadata": cmd_metadata,
-     "status": cmd_status, "publish": cmd_publish}[a.command](a, tok)
+     "status": cmd_status, "pull": cmd_pull, "publish": cmd_publish}[a.command](a, tok)
 
 
 if __name__ == "__main__":
