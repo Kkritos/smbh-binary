@@ -109,6 +109,7 @@ The delay tables can be rebuilt from the bundle (outputs land in the current dir
 ## Repository layout
 
 ```
+THEORY.md               tutorial on the physics and numerical methods behind the project
 analysis/yulai2024/     Newt vs PN collision fractions vs Yu & Lai (2024); digitised Yu & Lai data
 analysis/bhstar_mutde/  μTDE cross sections, branching, loss-cone rate, delay, debris figure
   notebooks/              the five notebooks and their figures

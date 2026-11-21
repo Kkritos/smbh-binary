@@ -16,6 +16,9 @@ Binary Encounters with Massive Black Holes*.
   ratios and debris figure; the Yu & Lai (2024) comparison; the single-encounter debris lab.
 - `scripts/get_data.py` to fetch the simulation data from Zenodo; `scripts/zenodo/` to publish it.
 - Test suite (`tests/`) and continuous integration (build + tests on every push).
+- `THEORY.md`: a self-contained tutorial on the physics (orbits, black holes, PN gravity, stars, binaries,
+  three-body encounters, tidal disruption, debris) and numerical methods (SpaceHub's AR-chain integrator,
+  Monte Carlo cross sections, loss-cone rates) behind the project.
 
 Earlier history: the tag `starstar-yulai-code` marks the older version of `smbh_binary.cpp`
 that produced the star–star collision data.
