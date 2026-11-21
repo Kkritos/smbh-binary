@@ -71,7 +71,7 @@ throughout this document.
 
 1. **Know the scales.** Before any calculation, ask: what is the typical size, mass, speed and time? For our encounters:
    - a binary of size $a\sim0.1$ AU;
-   - a black hole of mass $M_\bullet\sim10^6\,M_\odot$;
+   - a black hole of mass $M_\bullet\sim10^6\thinspace M_\odot$;
    - the binary's orbital speed $\sim300$ km/s;
    - the speed at closest approach to the black hole $\sim10^4$ km/s.
 2. **Compare things that have the same units.** A number like "1000 km/s" means nothing alone. It means a lot once you
@@ -141,19 +141,19 @@ Computers handle numbers near 1 best, so the code chooses units in which typical
 
 | Code unit | Value | Why |
 |---|---|---|
-| mass | $1\,M_\odot$ | |
+| mass | $1\thinspace M_\odot$ | |
 | length | 1 AU | |
 | speed | $V_1 = \sqrt{GM_\odot/\mathrm{AU}} = 29.78$ km/s | the Earth's orbital speed |
-| time | $\sqrt{\mathrm{AU}^3/GM_\odot} = 5.02\times10^6$ s $= 1\,\mathrm{yr}/2\pi = 0.159$ yr | |
-| speed of light | $c = 299\,792/29.78 = 1.006\times10^4$ in code units | |
+| time | $\sqrt{\mathrm{AU}^3/GM_\odot} = 5.02\times10^6$ s $= 1\thinspace\mathrm{yr}/2\pi = 0.159$ yr | |
+| speed of light | $c = 299\thinspace 792/29.78 = 1.006\times10^4$ in code units | |
 
 > **Why the time unit is 1 yr / 2π.** Kepler's third law with $G=1$ reads $P = 2\pi\sqrt{a^3/M}$. For the Earth
 > ($a = 1$, $M = 1$), $P = 2\pi$ code time units. That must equal 1 year, so one code time unit is $1/(2\pi)$ yr.
 > That's why the code converts times to years by dividing by $2\pi$ (`p.time()/(2*pi)` in `smbh_binary.cpp`).
 
-> **Worked example: converting a speed.** The binary's orbital speed for $a = 0.1$ AU and $m_{\rm bin} = 11\,M_\odot$ is,
+> **Worked example: converting a speed.** The binary's orbital speed for $a = 0.1$ AU and $m_{\rm bin} = 11\thinspace M_\odot$ is,
 > in code units, $v = \sqrt{m/a} = \sqrt{110} = 10.5$. In km/s: $10.5\times29.78 = 312$ km/s.
-> **Units check:** $\sqrt{GM/a}$ has units $\sqrt{(\mathrm{cm^3\,g^{-1}\,s^{-2}})(\mathrm{g})/\mathrm{cm}} = \mathrm{cm/s}$ ✓.
+> **Units check:** $\sqrt{GM/a}$ has units $\sqrt{(\mathrm{cm^3\thinspace g^{-1}\thinspace s^{-2}})(\mathrm{g})/\mathrm{cm}} = \mathrm{cm/s}$ ✓.
 
 > **Worked example: a gravitational radius.** With $G = 1$, the gravitational radius $r_g = GM/c^2$ becomes $M/C^2$ with
 > $C = 1.006\times10^4$. For $M = 10^6$: $r_g = 10^6/(1.006\times10^4)^2 = 9.87\times10^{-3}$ AU $= 1.48\times10^{11}$ cm.
@@ -171,7 +171,7 @@ don't change with time (Noether's theorem).
 
 For a body of mass $m$ moving at speed $v$ at distance $r$ from a point mass $M$:
 
-$$E = \underbrace{\tfrac12mv^2}_{\text{kinetic}} \;\underbrace{-\;\frac{GMm}{r}}_{\text{potential}} .$$
+$$E = \underbrace{\tfrac12mv^2}_{\text{kinetic}} \thickspace\underbrace{-\thickspace\frac{GMm}{r}}_{\text{potential}} .$$
 
 - **Kinetic energy** is energy of motion, always positive.
 - **Gravitational potential energy** is negative. The zero is chosen at infinite separation, and bringing bodies closer
@@ -192,8 +192,8 @@ $$\varepsilon \equiv \frac{E}{m} = \frac12v^2 - \frac{GM}{r}\qquad[\mathrm{erg/g
 
 - **Specific energy has units of velocity squared.** You can quote it in (km/s)², which makes it easy to picture.
 - **Its sign tells you whether the orbit is bound:**
-  - $\varepsilon<0$: **bound**. The body can never escape to infinity, because it would need positive kinetic energy there.
-  - $\varepsilon>0$: **unbound**. It escapes, with leftover speed $v_\infty = \sqrt{2\varepsilon}$ at infinity.
+  - $\varepsilon\lt 0$: **bound**. The body can never escape to infinity, because it would need positive kinetic energy there.
+  - $\varepsilon\gt 0$: **unbound**. It escapes, with leftover speed $v_\infty = \sqrt{2\varepsilon}$ at infinity.
   - $\varepsilon = 0$: exactly **parabolic**, the boundary case.
 
 **For two bodies of comparable mass**, use their *relative* position $\mathbf r$, relative velocity $\mathbf v$, and the
@@ -205,10 +205,10 @@ total mass $M = m_1+m_2$: $\varepsilon = \tfrac12v^2 - GM/r$. This is exactly wh
 > To escape it would need $\varepsilon\ge0$, i.e. $v\ge\sqrt{2}\times29.78 = 42.1$ km/s, the solar escape speed at 1 AU.
 
 > **Worked example: is the star bound to the 10 M☉ black hole?** Take a separation of 0.1 AU and a relative speed of
-> 300 km/s. Then $GM/r = 10\times887/0.1 = 88\,700$ (km/s)² and $\tfrac12v^2 = 45\,000$ (km/s)².
-> $\varepsilon = -43\,700$ (km/s)² < 0: bound.
+> 300 km/s. Then $GM/r = 10\times887/0.1 = 88\thinspace 700$ (km/s)² and $\tfrac12v^2 = 45\thinspace 000$ (km/s)².
+> $\varepsilon = -43\thinspace 700$ (km/s)² < 0: bound.
 
-**Specific energy relative to a pair.** To ask whether body $k$ is bound to a *binary* $\{a,b\}$, use $k$'s position and
+**Specific energy relative to a pair.** To ask whether body $k$ is bound to a *binary* $\lbrace a,b\rbrace$, use $k$'s position and
 velocity relative to the binary's **centre of mass**, and the total mass. That's `eps_to_binary_com` in the code.
 
 ### 2.3 Angular momentum
@@ -244,10 +244,10 @@ $$r(\nu) = \frac{p}{1+e\cos\nu},\qquad p = \frac{h^2}{GM}.$$
 
 | $e$ | Shape | Energy |
 |---|---|---|
-| 0 | circle | $\varepsilon<0$ |
-| 0 < e < 1 | ellipse | $\varepsilon<0$ |
+| 0 | circle | $\varepsilon\lt 0$ |
+| 0 < e < 1 | ellipse | $\varepsilon\lt 0$ |
 | 1 | parabola | $\varepsilon = 0$ |
-| > 1 | hyperbola | $\varepsilon>0$ |
+| > 1 | hyperbola | $\varepsilon\gt 0$ |
 
 Six numbers, the **orbital elements**, specify an orbit completely:
 - **semi-major axis** $a$: the size;
@@ -263,9 +263,9 @@ $$\varepsilon = -\frac{GM}{2a},\qquad h^2 = GMa(1-e^2),\qquad r_p = a(1-e),\qqua
 
 The **vis-viva equation** gives the speed anywhere on the orbit: $v^2 = GM\left(\frac2r-\frac1a\right)$.
 
-> **Worked example: the BH–star binary.** $m_{\rm bin} = 11\,M_\odot$, $a = 0.1$ AU, $e = 0.7$.
+> **Worked example: the BH–star binary.** $m_{\rm bin} = 11\thinspace M_\odot$, $a = 0.1$ AU, $e = 0.7$.
 > - Period: $P = \sqrt{a^3/m}$ yr $= \sqrt{10^{-3}/11} = 9.5\times10^{-3}$ yr $= 3.5$ days.
-> - Pericentre: $r_p = 0.03$ AU $= 6.4\,R_\odot$; apocentre $r_a = 0.17$ AU.
+> - Pericentre: $r_p = 0.03$ AU $= 6.4\thinspace R_\odot$; apocentre $r_a = 0.17$ AU.
 > - Orbital energy per unit (reduced) mass: $\varepsilon = -GM/2a = -(11/0.2)(887)$ (km/s)² $= -4.9\times10^4$ (km/s)².
 
 ### 3.3 Mean anomaly, eccentric anomaly, and Kepler's equation
@@ -316,7 +316,7 @@ Two conservation laws link $b$ and $r_p$:
 
 Eliminate $v_p = bv_\infty/r_p$:
 
-$$\boxed{b^2 = r_p^2 + \frac{2GM\,r_p}{v_\infty^2} = r_p^2 + r_{\rm foc}\,r_p,\qquad r_{\rm foc}\equiv\frac{2GM}{v_\infty^2}.}$$
+$$\boxed{b^2 = r_p^2 + \frac{2GM\thinspace r_p}{v_\infty^2} = r_p^2 + r_{\rm foc}\thinspace r_p,\qquad r_{\rm foc}\equiv\frac{2GM}{v_\infty^2}.}$$
 
 This exact formula appears in `smbh_binary.cpp` (`b_out = sqrt(rp^2 + 2 M rp / v_inf^2)`) and in `pkg/scales.py`.
 
@@ -324,13 +324,13 @@ This exact formula appears in `smbh_binary.cpp` (`b_out = sqrt(rp^2 + 2 M rp / v
 
 The cross section for passing within $r_p$ is the area of the disk of radius $b$:
 
-$$\sigma(<r_p) = \pi b^2 = \pi r_p^2\left(1+\frac{2GM}{r_pv_\infty^2}\right) = \pi r_p^2\left(1+\frac{v_p^2}{v_\infty^2}\right).$$
+$$\sigma(\lt r_p) = \pi b^2 = \pi r_p^2\left(1+\frac{2GM}{r_pv_\infty^2}\right) = \pi r_p^2\left(1+\frac{v_p^2}{v_\infty^2}\right).$$
 
 The second term is **gravitational focusing**: gravity pulls in trajectories that would otherwise miss. When $v_\infty$ is
 small compared with the speed at pericentre (always true here), focusing dominates by an enormous factor.
 
-> **Worked example: focusing for an SMBH encounter.** $M = 10^6\,M_\odot$, binary with $a = 0.1$ AU,
-> $v_\infty = 0.01\,v_{\rm orb} = 3.1$ km/s (a cold, slow approach).
+> **Worked example: focusing for an SMBH encounter.** $M = 10^6\thinspace M_\odot$, binary with $a = 0.1$ AU,
+> $v_\infty = 0.01\thinspace v_{\rm orb} = 3.1$ km/s (a cold, slow approach).
 > - $r_{\rm foc} = 2GM/v_\infty^2 = 2\times10^6\times887/3.1^2\approx1.8\times10^8$ AU. That's an enormous length, about 900 pc.
 > - For $r_p = 45$ AU (10 binary tidal radii; §9), $b = \sqrt{45^2 + 1.8\times10^8\times45}\approx9\times10^4$ AU ≈ 0.4 pc.
 >
@@ -385,7 +385,7 @@ A star approaching a black hole is torn apart at the tidal radius $r_t = R_\star
 $M^{1/3}$, while the capture radius grows as $M$. So for heavy enough black holes, the star is **swallowed whole before it
 can be disrupted**. The crossover is the **Hills mass** (Hills 1975), where $r_t = 4r_g$:
 
-$$R_\star\left(\frac{M_H}{m_\star}\right)^{1/3} = \frac{4GM_H}{c^2}\ \Rightarrow\ M_H = \left(\frac{R_\star c^2}{4Gm_\star^{1/3}}\right)^{3/2}\approx4\times10^7\,M_\odot\ \ (\text{Sun-like star}).$$
+$$R_\star\left(\frac{M_H}{m_\star}\right)^{1/3} = \frac{4GM_H}{c^2}\ \Rightarrow\ M_H = \left(\frac{R_\star c^2}{4Gm_\star^{1/3}}\right)^{3/2}\approx4\times10^7\thinspace M_\odot\ \ (\text{Sun-like star}).$$
 
 > **Worked example: tidal radius versus capture radius.**
 >
@@ -411,7 +411,7 @@ $$\frac{v^2}{c^2}\sim\frac{GM}{rc^2} = \frac{r_g}{r}.$$
 
 The **post-Newtonian (PN) expansion** writes the acceleration as a power series in this small number:
 
-$$\mathbf a = \underbrace{\mathbf a_{\rm N}}_{\text{Newton}}\left[1 + \underbrace{O\!\left(\tfrac{v^2}{c^2}\right)}_{\rm 1PN} + \underbrace{O\!\left(\tfrac{v^4}{c^4}\right)}_{\rm 2PN} + \underbrace{O\!\left(\tfrac{v^5}{c^5}\right)}_{\rm 2.5PN} + \cdots\right].$$
+$$\mathbf a = \underbrace{\mathbf a_{\rm N}}_{\text{Newton}}\left[1 + \underbrace{O\negthinspace\left(\tfrac{v^2}{c^2}\right)}_{\rm 1PN} + \underbrace{O\negthinspace\left(\tfrac{v^4}{c^4}\right)}_{\rm 2PN} + \underbrace{O\negthinspace\left(\tfrac{v^5}{c^5}\right)}_{\rm 2.5PN} + \cdots\right].$$
 
 The "$n$PN" term is smaller than Newton by $(v/c)^{2n}$.
 
@@ -428,9 +428,9 @@ and also with Newtonian gravity alone (`-DNEWTONIAN_ONLY`) for comparison.
 
 ### 6.2 How big are PN effects in our encounters?
 
-> **Worked example: the binary's pass by the SMBH.** $M = 10^6\,M_\odot$, $a = 0.1$ AU, penetration $\beta = 1.5$ (§9).
-> The pericentre is $r_p = r_{t,\rm bin}/\beta = 3.0$ AU $= 304\,r_g$.
-> - The speed there is $v_p = \sqrt{2GM/r_p}\approx24\,000$ km/s, i.e. $v_p/c = 0.08$.
+> **Worked example: the binary's pass by the SMBH.** $M = 10^6\thinspace M_\odot$, $a = 0.1$ AU, penetration $\beta = 1.5$ (§9).
+> The pericentre is $r_p = r_{t,\rm bin}/\beta = 3.0$ AU $= 304\thinspace r_g$.
+> - The speed there is $v_p = \sqrt{2GM/r_p}\approx24\thinspace 000$ km/s, i.e. $v_p/c = 0.08$.
 > - 1PN corrections: $r_g/r_p\approx3\times10^{-3}$, a 0.3% effect.
 > - Precession per passage: $\Delta\phi\approx3\pi r_g/r_p\approx0.03$ rad, about 2°.
 >
@@ -444,7 +444,7 @@ A binary emitting gravitational waves shrinks. For a circular orbit, the time to
 
 $$t_{\rm GW} = \frac{5}{256}\frac{c^5a^4}{G^3m_1m_2(m_1+m_2)}.$$
 
-> **Worked example.** For the BH–star binary ($10+1\,M_\odot$, $a = 0.1$ AU), $t_{\rm GW}\approx3\times10^{11}$ yr, longer than
+> **Worked example.** For the BH–star binary ($10+1\thinspace M_\odot$, $a = 0.1$ AU), $t_{\rm GW}\approx3\times10^{11}$ yr, longer than
 > the age of the Universe. Gravitational waves don't matter for the binary itself. They matter for a body captured onto a
 > tight orbit around the SMBH (an **extreme-mass-ratio inspiral**, EMRI): $t_{\rm GW}\propto a^4$ falls steeply as the orbit tightens.
 
@@ -479,15 +479,15 @@ The surface is the first zero, $\theta(\xi_1) = 0$.
 centre). It then places debris particles inside the star so that each carries equal mass. Particles are densely packed in
 the core and sparse in the envelope, just like the real mass.
 
-> **Inverse-CDF sampling (how equal-mass particles are drawn).** The enclosed mass $M(<\xi)\propto\int_0^\xi\xi'^2\theta^n\,d\xi'$
-> rises from 0 to 1 (normalized). Draw a uniform random number $u\in[0,1]$ and find the radius where $M(<\xi) = u$: the
+> **Inverse-CDF sampling (how equal-mass particles are drawn).** The enclosed mass $M(\lt\xi)\propto\int_0^\xi\xi'^2\theta^n\thinspace d\xi'$
+> rises from 0 to 1 (normalized). Draw a uniform random number $u\in[0,1]$ and find the radius where $M(\lt\xi) = u$: the
 > radius *enclosing a fraction u of the mass*. Repeat $N$ times. Radii where lots of mass sits get proportionally more
 > particles. Directions are drawn uniformly on the sphere ($\cos\theta$ uniform in [−1, 1], $\phi$ uniform in [0, 2π]).
 
 ### 7.3 Mass–radius relations
 
 Main-sequence stars have $R\approx R_\odot(M/M_\odot)^{0.8}$ roughly. In this project the star is fixed at
-$1\,M_\odot$, $1\,R_\odot$ for the BH–star campaign. Compact objects are far smaller:
+$1\thinspace M_\odot$, $1\thinspace R_\odot$ for the BH–star campaign. Compact objects are far smaller:
 - **white dwarfs:** about the size of the Earth, ~0.01 $R_\odot$;
 - **neutron stars:** ~10 km;
 - **black holes:** $2r_g$.
@@ -505,7 +505,7 @@ For a binary of total mass $m_{\rm bin}$ and semi-major axis $a$:
 - **orbital speed:** $v_{\rm orb} = \sqrt{Gm_{\rm bin}/a}$;
 - **binding energy:** $E_{\rm bin} = -Gm_1m_2/2a$.
 
-> **Worked example.** For $m_{\rm bin} = 11\,M_\odot$:
+> **Worked example.** For $m_{\rm bin} = 11\thinspace M_\odot$:
 >
 > | $a$ (AU) | $v_{\rm orb}$ (km/s) | $P$ |
 > |---|---|---|
@@ -531,9 +531,9 @@ binary that gets close enough is eventually broken by the tide; §9.)
 What eccentricities do real binaries have? If a population has been shuffled by many encounters until its energy states
 are uniformly populated ("thermal equilibrium", Jeans 1919; Heggie 1975), the distribution is
 
-$$p(e)\,de = 2e\,de\qquad(\text{the "thermal" distribution}).$$
+$$p(e)\thinspace de = 2e\thinspace de\qquad(\text{the "thermal" distribution}).$$
 
-High eccentricities are favoured: half the binaries have $e>0.71$. The campaign doesn't draw $e$ randomly. It runs a
+High eccentricities are favoured: half the binaries have $e\gt 0.71$. The campaign doesn't draw $e$ randomly. It runs a
 **grid** of 12 eccentricity values (0 to 0.99), then **weights** the results by $p(e)$ in post-processing. This is
 *stratified sampling*: just as accurate for the same number of runs, and it can be re-weighted to any assumed $p(e)$
 without re-running.
@@ -543,9 +543,9 @@ without re-running.
 A BH–star binary with too small a pericentre would tear the star apart *on its own*, before any encounter. The star is
 disrupted by its companion if the binary's pericentre $a(1-e)$ is inside the star's tidal radius about the BH (§10):
 
-$$r_{t,\rm inner} = R_\star\left(\frac{m_{\rm bin}}{m_\star}\right)^{1/3} = 1\,R_\odot\times11^{1/3} = 0.0103\ \text{AU}.$$
+$$r_{t,\rm inner} = R_\star\left(\frac{m_{\rm bin}}{m_\star}\right)^{1/3} = 1\thinspace R_\odot\times11^{1/3} = 0.0103\ \text{AU}.$$
 
-So only $e<e_{\max}(a) = 1 - r_{t,\rm inner}/a$ is physical. The sweep skips "born-disrupted" cells (`SURVIVAL_CUT`).
+So only $e\lt e_{\max}(a) = 1 - r_{t,\rm inner}/a$ is physical. The sweep skips "born-disrupted" cells (`SURVIVAL_CUT`).
 
 > **Worked example.** For $a = 0.03$ AU, $e_{\max} = 1 - 0.0103/0.03 = 0.66$: only 7 of the 12 eccentricity nodes survive.
 > For $a = 1$ AU, $e_{\max} = 0.99$: all of them do.
@@ -566,9 +566,9 @@ pulled apart. The **penetration factor** measures how deep the encounter goes:
 
 $$\beta = \frac{r_{t,\rm bin}}{r_p}.$$
 
-$\beta>1$ means a pass inside the tidal radius.
+$\beta\gt 1$ means a pass inside the tidal radius.
 
-> **Worked example.** $M_\bullet = 10^6\,M_\odot$, $a = 0.1$ AU: $r_{t,\rm bin} = 0.1\times(10^6/11)^{1/3} = 4.5$ AU. At $\beta = 1.5$,
+> **Worked example.** $M_\bullet = 10^6\thinspace M_\odot$, $a = 0.1$ AU: $r_{t,\rm bin} = 0.1\times(10^6/11)^{1/3} = 4.5$ AU. At $\beta = 1.5$,
 > $r_p = 3.0$ AU.
 >
 > **Timescale check (Part 0, step 3).** Passing pericentre takes about $\sqrt{r_p^3/GM}\approx\sqrt{27/10^6}$ code units
@@ -650,7 +650,7 @@ $M/r_t^3 = m/R^3$: **at the tidal radius, the black hole's "mean density" inside
 The same formula gives the binary's tidal radius (§9.1), with $R\to a$ and $m\to m_{\rm bin}$.
 
 > **Worked example: the μTDE tidal radius.** A Sun-like star near its 10 $M_\odot$ companion:
-> $r_t = R_\odot\times10^{1/3} = 2.15\,R_\odot = 0.0100$ AU. That's `R_TDE` in `pkg/scales.py`. (The code's `pair_event`
+> $r_t = R_\odot\times10^{1/3} = 2.15\thinspace R_\odot = 0.0100$ AU. That's `R_TDE` in `pkg/scales.py`. (The code's `pair_event`
 > uses the pair's total mass, $R_\star[(m_{\rm BH}+m_\star)/m_\star]^{1/3} = 0.0103$ AU, a 3% difference.)
 
 ---
@@ -676,10 +676,10 @@ For a parabolic star ($\varepsilon_\star = 0$), the near half is bound and the f
 
 ### 11.2 Fallback time and the t^(−5/3) law
 
-A bound debris element with energy $\varepsilon<0$ follows a Kepler ellipse with $a = GM/2|\varepsilon|$, and returns to
+A bound debris element with energy $\varepsilon\lt 0$ follows a Kepler ellipse with $a = GM/2|\varepsilon|$, and returns to
 pericentre after one period:
 
-$$t(\varepsilon) = 2\pi GM\,(2|\varepsilon|)^{-3/2}.$$
+$$t(\varepsilon) = 2\pi GM\thinspace (2|\varepsilon|)^{-3/2}.$$
 
 The **most bound** debris ($|\varepsilon| = \Delta\varepsilon$) returns first, at $t_{\min}$. Debris with smaller $|\varepsilon|$
 returns later. The mass return rate follows from the chain rule:
@@ -689,10 +689,10 @@ $$\dot M = \frac{dM}{dt} = \frac{dM}{d\varepsilon}\frac{d\varepsilon}{dt},\qquad
 If the debris is spread roughly evenly in energy ($dM/d\varepsilon\approx$ const), then $\dot M\propto t^{-5/3}$ (Phinney 1989).
 Debris returning to pericentre shocks, forms an accretion disk and shines, so $\dot M(t)$ roughly traces the light curve.
 
-> **Worked example: the μTDE fallback.** For a star of $1\,M_\odot$, $1\,R_\odot$ disrupted by a 10 $M_\odot$ black hole at
+> **Worked example: the μTDE fallback.** For a star of $1\thinspace M_\odot$, $1\thinspace R_\odot$ disrupted by a 10 $M_\odot$ black hole at
 > $r_d = r_t$: $\Delta\varepsilon = GM R_\star/r_t^2$, and the algebra gives
 > $t_{\min} = \frac{\pi}{\sqrt2}\left(\frac{M}{m_\star}\right)^{1/2}t_{\rm dyn,\star} = 2.22\times3.16\times1593\ \mathrm{s}\approx3$ hours.
-> Compare a $10^6\,M_\odot$ black hole: ~40 days. μTDEs are fast.
+> Compare a $10^6\thinspace M_\odot$ black hole: ~40 days. μTDEs are fast.
 
 ---
 
@@ -712,13 +712,13 @@ Each debris element has two specific energies:
 - **relative to BH2:** $\varepsilon_2 = \tfrac12|\mathbf v-\mathbf v_{\rm BH2}|^2 - GM_\bullet/|\mathbf r-\mathbf r_{\rm BH2}|$.
 
 The debris splits into three populations (`classify` in `debris_tracer.py`), assigned **hierarchically**:
-1. $\varepsilon_1<0$: **bound to BH1.** This debris falls back onto the 10 $M_\odot$ black hole within hours: the **first flare**.
-2. otherwise, $\varepsilon_2<0$: **escaped BH1 but bound to the massive black hole.** This debris travels out on wide orbits
+1. $\varepsilon_1\lt 0$: **bound to BH1.** This debris falls back onto the 10 $M_\odot$ black hole within hours: the **first flare**.
+2. otherwise, $\varepsilon_2\lt 0$: **escaped BH1 but bound to the massive black hole.** This debris travels out on wide orbits
    around BH2 and returns months later: a **second flare**.
 3. otherwise: **unbound** from both.
 
 > **Why hierarchical and not "most bound"?** BH2's potential well is vastly deeper than BH1's. Near BH1 essentially every
-> particle has $\varepsilon_2<0$, simply because BH1 itself orbits BH2. Asking "which is more negative?" would wrongly
+> particle has $\varepsilon_2\lt 0$, simply because BH1 itself orbits BH2. Asking "which is more negative?" would wrongly
 > assign everything to BH2. The physical question is nested: first, is it still held by its local disruptor? Only if not,
 > is it held by the big one?
 
@@ -733,13 +733,15 @@ $$t_{\rm peak,2}\sim2\pi GM_\bullet(2\Delta\varepsilon_2)^{-3/2}.$$
 > **Derivation of the scaling.** With $r_p = r_{t,\rm bin}/\beta = a(M_\bullet/m)^{1/3}/\beta$ (writing $m = m_{\rm bin}$):
 > - $v_p = \sqrt{2GM_\bullet/r_p}$;
 > - $v_{\rm orb} = \sqrt{Gm/a}$;
-> - so $\Delta\varepsilon_2 = v_pv_{\rm orb} = \frac{G}{a}\sqrt{2\beta}\,m^{2/3}M_\bullet^{1/3}$.
+> - so $\Delta\varepsilon_2 = v_pv_{\rm orb} = \frac{G}{a}\sqrt{2\beta}\thinspace m^{2/3}M_\bullet^{1/3}$.
 >
 > Substituting:
-> $$t_{\rm peak,2}\sim\frac{2\pi GM_\bullet}{\left[2\frac Ga\sqrt{2\beta}\,m^{2/3}M_\bullet^{1/3}\right]^{3/2}} = \frac{P_{\rm bin}}{(8\beta)^{3/4}}\left(\frac{M_\bullet}{m}\right)^{1/2},\qquad P_{\rm bin} = 2\pi\sqrt{\frac{a^3}{Gm}}.$$
+>
+> $$t_{\rm peak,2}\sim\frac{2\pi GM_\bullet}{\left[2\frac Ga\sqrt{2\beta}\thinspace m^{2/3}M_\bullet^{1/3}\right]^{3/2}} = \frac{P_{\rm bin}}{(8\beta)^{3/4}}\left(\frac{M_\bullet}{m}\right)^{1/2},\qquad P_{\rm bin} = 2\pi\sqrt{\frac{a^3}{Gm}}.$$
+>
 > This is exactly the estimate `Dt_pred` in `mutde_lab.py`.
 
-> **Worked example.** $M_\bullet = 10^6\,M_\odot$, $a = 0.1$ AU ($P_{\rm bin} = 3.5$ d), $\beta = 1.5$:
+> **Worked example.** $M_\bullet = 10^6\thinspace M_\odot$, $a = 0.1$ AU ($P_{\rm bin} = 3.5$ d), $\beta = 1.5$:
 > $t_{\rm peak,2}\approx3.5\ \mathrm d\times\sqrt{10^6/11}/(12)^{3/4} = 3.5\times301/6.45\approx160$ days.
 > So the signature is a **double flare**: a short μTDE flare lasting hours to days, followed ~5 months later by a second
 > flare when debris falls onto the massive black hole.
@@ -873,7 +875,7 @@ fractional change of total energy $|E(t)-E(0)|/|E(0)|$, is the standard health c
 ### 15.1 The singularity
 
 The force $\propto1/r^2$ blows up as $r\to0$. During a close approach:
-- velocities become huge and change direction within a short time ~$\sqrt{r^3/GM}$;
+- velocities become huge and change direction within a short time, of order $\sqrt{r^3/GM}$;
 - a fixed time step that's fine far away is catastrophically large near pericentre;
 - even adaptive steps shrink so much that **round-off errors** accumulate.
 
@@ -882,7 +884,7 @@ timescales from hours to centuries. That's a spread of $10^7$ in both.
 
 ### 15.2 Time transformation and regularization
 
-The key idea: **step in a different "time" variable** $s$, related to physical time by $dt = g(\mathbf r)\,ds$, where $g$ is
+The key idea: **step in a different "time" variable** $s$, related to physical time by $dt = g(\mathbf r)\thinspace ds$, where $g$ is
 small when bodies are close. Equal steps in $s$ then automatically become tiny steps in $t$ near pericentre.
 - **Kustaanheimo–Stiefel (KS) regularization** (1965) goes further: a change of coordinates turns the singular Kepler problem
   into a harmonic oscillator, which has no singularity at all.
@@ -954,7 +956,7 @@ two large positions measured from the SMBH, which would lose digits.
 ### 16.3 The logarithmic-Hamiltonian time transformation
 
 SpaceHub's default regularization is the **logarithmic Hamiltonian (LogH)** scheme (`ReguType::LogH` in `archain.hpp`).
-Let $T$ be the kinetic energy and $U<0$ the Newtonian potential energy, and let $B$ be minus the total energy (stored at the
+Let $T$ be the kinetic energy and $U\lt 0$ the Newtonian potential energy, and let $B$ be minus the total energy (stored at the
 start and updated as external forces such as PN do work). The two leapfrog sub-steps advance physical time differently:
 
 $$\text{drift:}\quad dt = \frac{ds}{T+B},\qquad\text{kick:}\quad dt = \frac{ds}{-U}.$$
@@ -980,15 +982,20 @@ the PN forces, $dB/dt = -\sum_i m_i\mathbf v_i\cdot\mathbf a_{{\rm PN},i}$. In t
 
 ### 16.5 The Bulirsch–Stoer driver and how rtol is used
 
-- Each big step $H$ (in $s$) is integrated with $n$ leapfrog substeps, $n\in\{1, 2, 3, 5, 8, 12, 17, 25\}$. The results are
+- Each big step $H$ (in $s$) is integrated with $n$ leapfrog substeps, $n\in\lbrace 1, 2, 3, 5, 8, 12, 17, 25\rbrace$. The results are
   extrapolated to $n\to\infty$ with an Aitken–Neville polynomial in $h^2$, up to 8 levels (`Bulirsch-Stoer.hpp`).
-- **Error estimate** (`worst-offender.hpp`): compare the last two extrapolations, variable by variable, and take the worst:
-  $$\mathrm{err} = \max_i\frac{\left|y_i^{(k)}-y_i^{(k-1)}\right|}{\mathrm{atol}+\mathrm{rtol}\cdot\max(\left|y_i^{(k)}\right|,\left|y_i^{(0)}\right|)} .$$
-  The step is accepted if $\mathrm{err}\le1$. The driver sets $\mathrm{rtol} = 10^{-13}$ (SpaceHub's own default is $10^{-14}$)
-  and $\mathrm{atol} = 0$.
-- **Next step size:** $H_{\rm new} = H\cdot0.72\,(0.95/\mathrm{err})^{1/(2k+1)}$ for extrapolation order $2k+1$, limited so it
+- **Error estimate** (`worst-offender.hpp`): compare the last two extrapolations, variable by variable, and take the worst
+  (the formula follows this list). The step is accepted if $\mathrm{err}\le1$. The driver sets $\mathrm{rtol} = 10^{-13}$
+  (SpaceHub's own default is $10^{-14}$) and $\mathrm{atol} = 0$.
+- **Next step size:** $H_{\rm new} = H\cdot0.72\thinspace (0.95/\mathrm{err})^{1/(2k+1)}$ for extrapolation order $2k+1$, limited so it
   can't change too abruptly. The extrapolation order itself adapts, to minimize work per unit of $s$.
 - **First step:** a tenth of the shortest free-fall time in the system.
+
+The error estimate used above:
+
+$$\mathrm{err} = \max_i\frac{\left|y_i^{(k)}-y_i^{(k-1)}\right|}{\mathrm{atol}+\mathrm{rtol}\cdot\max(\left|y_i^{(k)}\right|,\left|y_i^{(0)}\right|)} .$$
+
+Here $y_i^{(k)}$ and $y_i^{(k-1)}$ are the last two extrapolated values of variable $i$, and $y_i^{(0)}$ is its value at the start of the step.
 
 ### 16.6 The forces
 
@@ -996,24 +1003,25 @@ the PN forces, $dB/dt = -\sum_i m_i\mathbf v_i\cdot\mathbf a_{{\rm PN},i}$. In t
 - **PN1, PN2, PN2.5** (`interaction/post-newtonian.hpp`): the **two-body** equations of motion in harmonic coordinates from
   Blanchet (2014, Living Reviews, eq. 203; cited in the code), applied to **every pair** and summed.
 
-  For example, the 1PN acceleration of body 1 due to body 2, with $\mathbf n = (\mathbf r_1-\mathbf r_2)/r$ and $\mathbf v_{12} = \mathbf v_1-\mathbf v_2$:
-  $$\mathbf a_1^{\rm 1PN} = \frac{Gm_2}{r^2c^2}\left\{\left[-v_1^2-2v_2^2+4\,\mathbf v_1\!\cdot\mathbf v_2+\tfrac32(\mathbf n\!\cdot\mathbf v_2)^2+\frac{5Gm_1}{r}+\frac{4Gm_2}{r}\right]\mathbf n+\left[4\,\mathbf n\!\cdot\mathbf v_1-3\,\mathbf n\!\cdot\mathbf v_2\right]\mathbf v_{12}\right\}.$$
+For example, the 1PN acceleration of body 1 due to body 2, with $\mathbf n = (\mathbf r_1-\mathbf r_2)/r$ and $\mathbf v_{12} = \mathbf v_1-\mathbf v_2$, is
 
-  The 2.5PN (radiation-reaction) term has prefactor $\frac{8}{5}\frac{G^2m_1m_2}{r^3c^5}$, and is what removes orbital energy as gravitational waves.
+$$\mathbf a_1^{\rm 1PN} = \frac{Gm_2}{r^2c^2}\left\lbrace\left[-v_1^2-2v_2^2+4\thinspace\mathbf v_1\negthinspace\cdot\mathbf v_2+\tfrac32(\mathbf n\negthinspace\cdot\mathbf v_2)^2+\frac{5Gm_1}{r}+\frac{4Gm_2}{r}\right]\mathbf n+\left[4\thinspace\mathbf n\negthinspace\cdot\mathbf v_1-3\thinspace\mathbf n\negthinspace\cdot\mathbf v_2\right]\mathbf v_{12}\right\rbrace.$$
 
-  **Caveat:** summing two-body PN terms pair by pair omits the genuinely three-body PN cross terms of the full
-  Einstein–Infeld–Hoffmann equations, such as the SMBH's potential modifying the BH1–star interaction. Those terms are of
-  relative size $\sim r_g/r_p$ ($\sim10^{-3}$ for the example in §6.2). This is a standard approximation in few-body PN codes.
+The 2.5PN (radiation-reaction) term has prefactor $\frac{8}{5}\frac{G^2m_1m_2}{r^3c^5}$, and is what removes orbital energy as gravitational waves.
+
+**Caveat:** summing two-body PN terms pair by pair omits the genuinely three-body PN cross terms of the full
+Einstein–Infeld–Hoffmann equations, such as the SMBH's potential modifying the BH1–star interaction. Those terms are of
+relative size $\sim r_g/r_p$ ($\sim10^{-3}$ for the example in §6.2). This is a standard approximation in few-body PN codes.
 
 ### 16.7 Stellar radii
 
 When no radius is supplied, `stellar::stellar_radius` uses:
 - stars: $R = R_\odot(m/M_\odot)^{0.75}$;
-- white dwarfs: $R = 0.01\,R_\odot(M_\odot/m)^{1/3}$;
+- white dwarfs: $R = 0.01\thinspace R_\odot(M_\odot/m)^{1/3}$;
 - neutron stars: 10 km;
 - black holes: $2Gm/c^2$.
 
-The BH–star campaign passes the radii explicitly ($1\,R_\odot$ for the star; $2r_g$ for BH1).
+The BH–star campaign passes the radii explicitly ($1\thinspace R_\odot$ for the star; $2r_g$ for BH1).
 
 ### 16.8 The energy-error diagnostic
 
@@ -1040,11 +1048,8 @@ For one encounter, with all quantities converted to code units:
    (`orbit::Elliptic`) and moved to their own centre-of-mass frame. The inclination is measured relative to the outer orbit's plane.
 2. **Outer orbit.** The binary's pericentre is $r_p = r_{t,\rm bin}/\beta$, and the impact parameter follows from
    $b^2 = r_p^2+2GM_{\rm tot}r_p/v_\infty^2$ (§4). The binary is placed on the incoming branch of the hyperbola
-   (`orbit::Hyperbolic(..., Hyper::in)`) at distance
-
-   $$r_{\rm start} = \max(50\,r_{t,\rm bin},\ 10\,r_p).$$
-
-   **Why there:** the tidal perturbation scales as $(r_{t,\rm bin}/r)^3$, which is about $10^{-5}$ at $50\,r_{t,\rm bin}$, so the
+   (`orbit::Hyperbolic(..., Hyper::in)`) at distance $r_{\rm start} = \max(50\thinspace r_{t,\rm bin},\ 10\thinspace r_p)$.
+   **Why there:** the tidal perturbation scales as $(r_{t,\rm bin}/r)^3$, which is about $10^{-5}$ at $50\thinspace r_{t,\rm bin}$, so the
    binary starts essentially unperturbed. Starting farther out (as far as $b$) would waste thousands of binary orbits on an
    uneventful approach. The encounter geometry is fixed by $(r_p, b)$, and the binary's phase is random, so starting closer
    introduces no bias.
@@ -1060,15 +1065,15 @@ The integration ends at the first of:
    - **PLUNGE:** for a compact pair (both black holes, or above the Hills mass), the osculating pericentre is tested
      against $4r_g$ (only within $50r_g$, to save time).
 2. **Escape:** a body is farther than $r_{\rm far} = 2r_{\rm start}$ from the centre of mass of the other two, *receding*, **and**
-   energetically unbound from them ($\varepsilon>0$). The energy clause prevents stopping a body that is merely at the
+   energetically unbound from them ($\varepsilon\gt 0$). The energy clause prevents stopping a body that is merely at the
    apocentre of a wide but bound orbit; such a body will come back for more.
-3. **Time backstop:** $t > n_{\rm dyn}t_{\rm dyn}(r_{\rm start})$, with $n_{\rm dyn} = 2\times10^4$ in the BH–star campaign. Runs that
+3. **Time backstop:** $t \gt n_{\rm dyn}t_{\rm dyn}(r_{\rm start})$, with $n_{\rm dyn} = 2\times10^4$ in the BH–star campaign. Runs that
    end this way are flagged `exit_mode = backstop`.
 
 ### 17.3 Classification
 
 If no terminal event occurred, the final energies decide the outcome (with $\varepsilon$ from §2):
-- inner pair bound ($\varepsilon_{12}<0$) and bound to the SMBH → BOUND_TRIPLE; inner pair bound but free of the SMBH → FLYBY;
+- inner pair bound ($\varepsilon_{12}\lt 0$) and bound to the SMBH → BOUND_TRIPLE; inner pair bound but free of the SMBH → FLYBY;
 - inner pair unbound, one member bound to the SMBH → EXCHANGE; both members bound to it → BOUND_TRIPLE; neither → IONIZATION.
 
 The code also records the surviving orbit's $(a,e)$, the escaper's speed, the closest approaches of each pair (in $r_g$),
@@ -1086,11 +1091,11 @@ We want the **cross section** $\sigma_X$ for outcome $X$: the effective area of 
 number flux $n v_\infty$ (per area per time), outcome $X$ happens at rate $n\sigma_Xv_\infty$. We measure it by throwing
 binaries at random impact parameters within a large disk of radius $b_{\max}$:
 
-$$\sigma_X = f_X\,\pi b_{\max}^2,\qquad f_X = \frac{N_X}{N}.$$
+$$\sigma_X = f_X\thinspace\pi b_{\max}^2,\qquad f_X = \frac{N_X}{N}.$$
 
 ### 18.2 Sampling the impact parameter
 
-Random arrival points are uniform **in area**, not in radius. The area between $b$ and $b+db$ is $2\pi b\,db$, so
+Random arrival points are uniform **in area**, not in radius. The area between $b$ and $b+db$ is $2\pi b\thinspace db$, so
 $p(b)\propto b$, i.e. **$b^2$ is uniform** on $[0, b_{\max}^2]$. The sweep draws $b^2$ uniformly, converts to $r_p$ by inverting
 $b^2 = r_p^2+r_{\rm foc}r_p$:
 
@@ -1103,9 +1108,9 @@ and passes $\beta = r_{t,\rm bin}/r_p$ to the code.
 $b_{\max}$ must be large enough to contain every encounter that can produce outcome $X$, but not so large that most runs
 are wasted on distant flybys. The campaign sets the largest pericentre
 
-$$r_{p,\max} = \max(10\,r_{t,\rm bin},\ 8\,r_g),\qquad b_{\max}^2 = r_{p,\max}^2 + r_{\rm foc}\,r_{p,\max}$$
+$$r_{p,\max} = \max(10\thinspace r_{t,\rm bin},\ 8\thinspace r_g),\qquad b_{\max}^2 = r_{p,\max}^2 + r_{\rm foc}\thinspace r_{p,\max}$$
 
-(`pkg/scales.py`; the first campaign used $5\,r_{t,\rm bin}$). Beyond $10\,r_{t,\rm bin}$ the tide is $10^{-3}$ of the binary's
+(`pkg/scales.py`; the first campaign used $5\thinspace r_{t,\rm bin}$). Beyond $10\thinspace r_{t,\rm bin}$ the tide is $10^{-3}$ of the binary's
 self-gravity, too weak to drive a μTDE. Doubling the cut from 5 to 10 and checking that the μTDE count converged is a
 **convergence test** of the kind recommended in Part 0.
 
@@ -1149,7 +1154,7 @@ That's about $2.8\times10^7$ simulated encounters, stored in the HDF5 "bundle" (
 ### 19.1 From cross section to rate
 
 A single black hole embedded in a population of binaries with number density $n$ and velocity dispersion $\sigma_v$ sees
-outcome $X$ at rate $\Gamma\approx n\,\Sigma_X\,v$. In a galactic nucleus, though, the supply of binaries on orbits that
+outcome $X$ at rate $\Gamma\approx n\thinspace\Sigma_X\thinspace v$. In a galactic nucleus, though, the supply of binaries on orbits that
 reach the black hole is limited, and that's what loss-cone theory describes.
 
 ### 19.2 The loss cone
@@ -1160,7 +1165,7 @@ radius $r$ is $\theta_{\rm lc}^2\approx\Sigma/\pi r^2$ (Syer & Ulmer 1999 form, 
 emptied within one orbital period. They're refilled by **two-body relaxation**: random gravitational nudges between stars,
 which slowly change orbits on the relaxation time
 
-$$t_r = \frac{0.34\,\sigma_v^3}{G^2m_\star\rho\ln\Lambda}$$
+$$t_r = \frac{0.34\thinspace\sigma_v^3}{G^2m_\star\rho\ln\Lambda}$$
 
 (Spitzer 1987; Binney & Tremaine 2008). Two regimes (Frank & Rees 1976; Lightman & Shapiro 1977):
 - **Empty loss cone** (close to the black hole): relaxation is slow and the loss cone is refilled only diffusively.
@@ -1168,7 +1173,7 @@ $$t_r = \frac{0.34\,\sigma_v^3}{G^2m_\star\rho\ln\Lambda}$$
 
 The rate per galaxy is dominated by the radius $r_{\rm crit}$ where the two regimes meet, and roughly
 
-$$\Gamma\sim\frac{N_{\rm bin}(<r_{\rm crit})}{t_r(r_{\rm crit})}.$$
+$$\Gamma\sim\frac{N_{\rm bin}(\lt r_{\rm crit})}{t_r(r_{\rm crit})}.$$
 
 The notebook interpolates between the regimes and integrates over a two-power-law nuclear star cluster.
 
@@ -1294,4 +1299,7 @@ Stone & Leigh), giving $\langle\sigma(M_\bullet,v)\rangle$ for the rate calculat
 
 ## Appendix D: Changelog
 
-- **2026-11-21.** First version.
+- **2026-11-21 (b).** Fixed equations that rendered incorrectly on GitHub. GitHub's Markdown escaping ate `\,` `\;` `\!` `\{` `\}`
+  and double-escaped `<` `>` inside math, so these are now written `\thinspace`, `\lbrace`, `\lt`, etc. Display equations
+  inside list items, or directly against text, were moved onto their own lines.
+- **2026-11-21 (a).** First version.
