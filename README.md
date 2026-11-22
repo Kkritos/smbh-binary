@@ -5,8 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Data DOI](https://img.shields.io/badge/data-10.5281%2Fzenodo.24372716-blue)](https://doi.org/10.5281/zenodo.24372716)
 
-Code and analysis for **Kritos & Perna (2026), *Double Flares from Black Hole-Star Binary
-Encounters with Massive Black Holes*** (see [Citing](#citing)).
+Code and analysis for **Kritos & Perna (2026), *Tidally-Induced Coda: Double Transients from Black Hole-Star Binary Encounters with Massive Black Holes*** (see [Citing](#citing)).
 
 Three-body scattering of a stellar binary (BH–star, star–star) with a supermassive (or
 intermediate-mass) black hole, integrated with [SpaceHub](https://github.com/YihanWangAstro/SpaceHub)
@@ -236,8 +235,7 @@ Version 1.0.0 is the code used for the paper. The tag `starstar-yulai-code` mark
 If you use this code or data, please cite the paper (GitHub's *Cite this repository* button uses
 [`CITATION.cff`](CITATION.cff)):
 
-> K. Kritos and R. Perna (2026), *Double Flares from Black Hole-Star Binary Encounters with
-> Massive Black Holes*, in preparation.
+> K. Kritos and R. Perna (2026), *Tidally-Induced Coda: Double Transients from Black Hole-Star Binary Encounters with Massive Black Holes*, in preparation.
 
 and the data set: doi:[10.5281/zenodo.24372716](https://doi.org/10.5281/zenodo.24372716).
 The integrator is [SpaceHub](https://github.com/YihanWangAstro/SpaceHub) (Wang et al. 2021, MNRAS).

@@ -1294,7 +1294,7 @@ Stone & Leigh), giving $\langle\sigma(M_\bullet,v)\rangle$ for the rate calculat
 - Pihajoki, P. (2015), Celest. Mech. Dyn. Astron. 121, 211. Extended phase space.
 
 **This project**
-- Kritos, K. & Perna, R. (2026), *Double Flares from Black Hole–Star Binary Encounters with Massive Black Holes*, in preparation.
+- Kritos, K. & Perna, R. (2026), *Tidally-Induced Coda: Double Transients from Black Hole–Star Binary Encounters with Massive Black Holes*, in preparation.
 - Yu, Y. & Lai, D. (2024). Star–star binary collisions near SMBHs (the comparison in `analysis/yulai2024/`).
 
 ## Appendix D: Changelog

@@ -9,7 +9,7 @@
      "affiliation": "Department of Physics and Astronomy, Stony Brook University, Stony Brook, NY 11794-3800, USA",
      "orcid": "0000-0002-3635-5677"}
   ],
-  "description": "Code accompanying Kritos & Perna (2026), \"Double Flares from Black Hole-Star Binary Encounters with Massive Black Holes\": a SpaceHub-based post-Newtonian three-body code, campaign scripts, and the analysis notebooks that reproduce the paper's figures from the archived simulation data.",
+  "description": "Code accompanying Kritos & Perna (2026), \"Tidally-Induced Coda: Double Transients from Black Hole-Star Binary Encounters with Massive Black Holes\": a SpaceHub-based post-Newtonian three-body code, campaign scripts, and the analysis notebooks that reproduce the paper's figures from the archived simulation data.",
   "license": "MIT",
   "access_right": "open",
   "keywords": ["tidal disruption events", "micro-TDE", "black hole binaries", "supermassive black holes", "three-body scattering"]
