@@ -31,10 +31,10 @@ gzip -k data/debris_mutde/s1/bss_hyperbolic_bh10_star1_i3.06878_full.txt
 python3 scripts/zenodo/zenodo_upload.py create
 
 # 2. put the reserved DOI / record id into the repository:
-#    README.md (two XXXXXXX placeholders), CITATION.cff (identifiers),
+#    README.md (DOI badge and links), CITATION.cff (identifiers),
 #    scripts/get_data.py (ZENODO_RECORD), then commit.
 
-# 3. upload the 8 files (~20 GB; re-run to resume, finished files are skipped)
+# 3. upload the 7 files (~20 GB; re-run to resume, finished files are skipped)
 python3 scripts/zenodo/zenodo_upload.py upload
 
 # 4. check, and look at the draft on the website (the link printed by `status`)

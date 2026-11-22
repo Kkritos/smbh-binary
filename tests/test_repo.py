@@ -19,6 +19,8 @@ def test_notebooks_valid_and_without_saved_errors(nb):
     errors = [o for c in data["cells"] if c["cell_type"] == "code"
               for o in c.get("outputs", []) if o.get("output_type") == "error"]
     assert not errors
+    # a personal virtual-env kernel would make Jupyter ask every reader to pick a kernel
+    assert data["metadata"].get("kernelspec", {}).get("name", "python3") == "python3"
 
 
 def test_data_manifest_destinations_unique():

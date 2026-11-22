@@ -11,7 +11,7 @@ Three-body scattering of a stellar binary (BH–star, star–star) with a superm
 intermediate-mass) black hole, integrated with [SpaceHub](https://github.com/YihanWangAstro/SpaceHub)
 including post-Newtonian terms (1PN + 2PN + 2.5PN).
 
-- **BH–star campaign** — outcome cross sections σ(outcome | M•, a_bin, e_bin, v∞/v_orb), with a
+- **BH–star campaign** — outcome cross sections Σ(outcome | M•, a_bin, e_bin, v∞/v_orb), with a
   focus on **micro-TDEs** (the star disrupted by its BH companion during the SMBH encounter):
   rates via the loss cone, the f_μ semi-analytic fit, debris fallback and the double-flare delay.
 - **Star–star campaign** — collision fractions compared with **Yu & Lai (2024)**, Newtonian vs PN.

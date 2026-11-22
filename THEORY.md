@@ -78,7 +78,7 @@ throughout this document.
    compare it with the speed of light (300 000 km/s), or with the escape speed. Ratios of like quantities, such as $v/c$,
    $r_p/r_g$ or $v_\infty/v_{\rm orb}$, decide which physics matters. They are called **dimensionless numbers**.
 3. **Compare timescales.** The fastest process usually controls what happens; much slower processes can be treated as
-   frozen. *Example:* the binary orbits in ~3 days, but the encounter with the black hole takes ~1 day near closest
+   frozen. *Example:* the binary orbits in ~3 days, but the encounter with the black hole takes a fraction of a day near closest
    approach. Comparable timescales mean the binary is strongly disturbed.
 4. **Find the balance.** Most structures are a balance between two effects: gravity versus pressure (a star), the black
    hole's tidal pull versus the binary's own gravity (the tidal radius), kinetic versus potential energy (bound or not).
@@ -104,7 +104,7 @@ throughout this document.
 
 ### 1.1 Why units matter
 
-A physical quantity is a number **times a unit**: "3 km" and "3 AU" differ by a factor of $5\times10^7$. Every equation
+A physical quantity is a number **times a unit**: "3 km" and "3 AU" differ by a factor of $1.5\times10^8$. Every equation
 must have the same units on both sides. Checking that (dimensional analysis) catches most algebra mistakes.
 
 ### 1.2 CGS and astronomical units
@@ -318,13 +318,13 @@ Eliminate $v_p = bv_\infty/r_p$:
 
 $$\boxed{b^2 = r_p^2 + \frac{2GM\thinspace r_p}{v_\infty^2} = r_p^2 + r_{\rm foc}\thinspace r_p,\qquad r_{\rm foc}\equiv\frac{2GM}{v_\infty^2}.}$$
 
-This exact formula appears in `smbh_binary.cpp` (`b_out = sqrt(rp^2 + 2 M rp / v_inf^2)`) and in `pkg/scales.py`.
+This exact formula appears in `smbh_binary.cpp` (`b_out = sqrt(rp^2 + 2 M rp / v_inf^2)`) and in `analysis/bhstar_mutde/pkg/scales.py`.
 
 ### 4.3 Gravitational focusing
 
 The cross section for passing within $r_p$ is the area of the disk of radius $b$:
 
-$$\sigma(\lt r_p) = \pi b^2 = \pi r_p^2\left(1+\frac{2GM}{r_pv_\infty^2}\right) = \pi r_p^2\left(1+\frac{v_p^2}{v_\infty^2}\right).$$
+$$\Sigma(\lt r_p) = \pi b^2 = \pi r_p^2\left(1+\frac{2GM}{r_pv_\infty^2}\right) = \pi r_p^2\left(1+\frac{v_{\rm esc}^2(r_p)}{v_\infty^2}\right).$$
 
 The second term is **gravitational focusing**: gravity pulls in trajectories that would otherwise miss. When $v_\infty$ is
 small compared with the speed at pericentre (always true here), focusing dominates by an enormous factor.
@@ -359,7 +359,7 @@ $r_g$, the **gravitational radius**, is the natural length scale of a black hole
 | Black hole | Mass | $r_g$ | $r_s$ |
 |---|---|---|---|
 | stellar-mass (BH1 here) | 10 $M_\odot$ | 14.8 km | 29.5 km |
-| intermediate-mass (IMBH) | 10³ $M_\odot$ | 1480 km | 9.9×10⁻⁶ AU |
+| intermediate-mass (IMBH) | 10³ $M_\odot$ | 1480 km | 2.0×10⁻⁵ AU |
 | Sgr A* (Milky Way centre) | 4×10⁶ $M_\odot$ | 5.9×10⁶ km | 0.08 AU (17 $R_\odot$) |
 | SMBH | 10⁸ $M_\odot$ | 0.99 AU | 2 AU |
 
@@ -413,7 +413,7 @@ The **post-Newtonian (PN) expansion** writes the acceleration as a power series 
 
 $$\mathbf a = \underbrace{\mathbf a_{\rm N}}_{\text{Newton}}\left[1 + \underbrace{O\left(\tfrac{v^2}{c^2}\right)}_{\rm 1PN} + \underbrace{O\left(\tfrac{v^4}{c^4}\right)}_{\rm 2PN} + \underbrace{O\left(\tfrac{v^5}{c^5}\right)}_{\rm 2.5PN} + \cdots\right].$$
 
-The "$n$PN" term is smaller than Newton by $(v/c)^{2n}$.
+The "$n{\rm PN}$" term is smaller than Newton by $(v/c)^{2n}$.
 
 | Term | Physics | Conserves energy? |
 |---|---|---|
@@ -548,7 +548,7 @@ $$r_{t,\rm inner} = R_\star\left(\frac{m_{\rm bin}}{m_\star}\right)^{1/3} = 1\th
 So only $e\lt e_{\max}(a) = 1 - r_{t,\rm inner}/a$ is physical. The sweep skips "born-disrupted" cells (`SURVIVAL_CUT`).
 
 > **Worked example.** For $a = 0.03$ AU, $e_{\max} = 1 - 0.0103/0.03 = 0.66$: only 7 of the 12 eccentricity nodes survive.
-> For $a = 1$ AU, $e_{\max} = 0.99$: all of them do.
+> For $a = 1$ AU, $e_{\max} = 0.9897$, so the $e = 0.99$ node is skipped and 11 of the 12 survive; from $a\approx2$ AU on, all 12 do.
 
 ---
 
@@ -595,18 +595,22 @@ After the encounter, the code classifies the result (`smbh_binary.cpp`, see §17
 When a binary is broken by a massive black hole, one member is captured onto a tight, highly eccentric orbit and the
 other flies away at high speed (Hills 1988). Energy bookkeeping explains why.
 
-At pericentre the binary's centre of mass moves at $v_p$. Each member also moves relative to the centre of mass at about
-$v_{\rm orb}$. When the binary is split, each member keeps its total velocity, about $v_p\pm v_{\rm orb}$, and its specific
-energy relative to the black hole changes by about
+At pericentre the binary's centre of mass moves at $v_p$. The member that escapes moves relative to the centre of mass at
+$v_c = v_{\rm orb}\thinspace m_c/m_{\rm bin}$, where $m_c$ is the mass of its companion (the member that is captured). When
+the binary is split, the escaping member keeps its total velocity, about $v_p + v_c$, and its specific energy relative to
+the black hole changes by about
 
-$$\Delta\varepsilon\sim v_pv_{\rm orb}.$$
+$$\Delta\varepsilon\sim v_pv_c.$$
 
-That is enormous, because $v_p\gg v_{\rm orb}$. One member ends up bound by $-\Delta\varepsilon$; the other unbound by $+\Delta\varepsilon$, leaving with
+That is enormous, because $v_p\gg v_c$. The captured member ends up bound; the other leaves with $v_{\rm ej}\approx\sqrt{2\Delta\varepsilon}$.
+Writing $v_p = (2GM_\bullet\beta/r_{t,\rm bin})^{1/2}$ with $r_{t,\rm bin} = a(M_\bullet/m_{\rm bin})^{1/3}$ gives
 
-$$v_{\rm ej}\sim\sqrt{2\Delta\varepsilon}\sim v_{\rm orb}\left(\frac{M_\bullet}{m_{\rm bin}}\right)^{1/6}.$$
+$$v_{\rm ej}\approx2^{3/4}\beta^{1/4}\left(\frac{Gm_c}{a}\right)^{1/2}\left(\frac{M_\bullet}{m_{\rm bin}}\right)^{1/6}.$$
 
-> **Worked example.** $v_{\rm orb} = 312$ km/s, $M_\bullet/m_{\rm bin} = 10^6/11$: $(9\times10^4)^{1/6} = 6.7$, so
-> $v_{\rm ej}\sim2000$ km/s. That's faster than the Milky Way's escape speed (~550 km/s near the Sun). The Hills mechanism
+> **Worked example.** A star ejected from a BH–star binary ($m_c = 10\thinspace M_\odot$, $m_{\rm bin} = 11\thinspace M_\odot$,
+> $a = 0.1$ AU) by a $10^6\thinspace M_\odot$ black hole at $\beta = 1$: $(Gm_c/a)^{1/2} = 298$ km/s and $(9\times10^4)^{1/6} = 6.7$, so
+> $v_{\rm ej}\approx3400$ km/s. For a star–star binary ($m_c = 1$, $m_{\rm bin} = 2$) at the same $a$ and $\beta$ the speed is
+> $\sqrt{10}\thinspace(2/11)^{1/6}\approx2.4$ times lower. That's faster than the Milky Way's escape speed (~550 km/s near the Sun). The Hills mechanism
 > is the leading explanation for observed **hypervelocity stars** (Brown 2015).
 
 **This same energy kick sets the second flare in a μTDE** (§12): debris inherit roughly the same spread of energies relative
@@ -754,7 +758,14 @@ $t = 2\pi M(2|\varepsilon|)^{-3/2}$, and defines
 $$\Delta t_{\rm delay} = t_{\rm peak,BH2} - t_{\rm peak,BH1}.$$
 
 The 90th percentile (rather than the single most bound particle) makes the estimate robust against random outliers.
-`survey_delay.ipynb` then fits how $\Delta t_{\rm delay}$ scales with $M_\bullet$, $a$, $e$ and $v_\infty$.
+`survey_delay.ipynb` then fits how $\Delta t_{\rm delay}$ scales with the parameters, using only events with pericentre
+$r_p\geq100\thinspace r_g$ (closer passages need general relativity). The black-hole mass and the binary separation carry
+almost all the information; with $x_M = \log_{10}(M_\bullet/M_\odot)$ and $x_a = \log_{10}(a/{\rm AU})$,
+
+$$\log_{10}\frac{\Delta t_{\rm delay}}{\rm yr} = 0.2511-0.1181\thinspace x_M+2.0696\thinspace x_a+0.0353\thinspace x_M^2+0.1251\thinspace x_a^2-0.1473\thinspace x_Mx_a ,$$
+
+with a scatter of 0.68 dex between individual events ($R^2 = 0.80$). Adding $e$ reduces the residual variance by only 3.7%,
+and $v_\infty$ has no effect. For $M_\bullet = 10^6\thinspace M_\odot$ and $a = 0.1$ AU the fit gives about 200 days.
 
 ---
 
@@ -857,8 +868,8 @@ This is why leapfrog is the workhorse of gravitational dynamics, and why it form
 Runge–Kutta methods evaluate the forces at several points within a step and combine them cleverly to cancel error terms.
 **DOP853** (Dormand & Prince; Hairer, Nørsett & Wanner 1993) is an 8th-order method. It also computes an embedded
 lower-order estimate, and the difference between the two estimates the error of each step. If the error exceeds the
-tolerance (`rtol`, `atol`), the step is retried with a smaller $\Delta t$. Otherwise $\Delta t$ grows. The debris tracer and
-the Lane–Emden solver use it. It's very accurate per step but not symplectic, so energy slowly drifts. That's acceptable
+tolerance (`rtol`, `atol`), the step is retried with a smaller $\Delta t$. Otherwise $\Delta t$ grows. The debris tracer uses it (the Lane–Emden solver uses SciPy's default
+fifth-order RK45 with a tight tolerance). It's very accurate per step but not symplectic, so energy slowly drifts. That's acceptable
 for the short debris integrations, not for long few-body runs.
 
 ### 14.5 Tolerances and error control
@@ -879,7 +890,7 @@ The force $\propto1/r^2$ blows up as $r\to0$. During a close approach:
 - a fixed time step that's fine far away is catastrophically large near pericentre;
 - even adaptive steps shrink so much that **round-off errors** accumulate.
 
-In our problem, the separations range from $10^{-2}$ AU (star near BH1) to $10^5$ AU (start of the encounter), and the
+In our problem, the separations range from $10^{-2}$ AU (star near BH1) to $10^5$–$10^6$ AU (start of the encounter), and the
 timescales from hours to centuries. That's a spread of $10^7$ in both.
 
 ### 15.2 Time transformation and regularization
@@ -1087,11 +1098,11 @@ follow-up run (`--restart`).
 
 ### 18.1 The idea
 
-We want the **cross section** $\sigma_X$ for outcome $X$: the effective area of the target. If binaries arrive with
-number flux $n v_\infty$ (per area per time), outcome $X$ happens at rate $n\sigma_Xv_\infty$. We measure it by throwing
+We want the **cross section** $\Sigma_X$ for outcome $X$: the effective area of the target. If binaries arrive with
+number flux $n v_\infty$ (per area per time), outcome $X$ happens at rate $n\Sigma_Xv_\infty$. We measure it by throwing
 binaries at random impact parameters within a large disk of radius $b_{\max}$:
 
-$$\sigma_X = f_X\thinspace\pi b_{\max}^2,\qquad f_X = \frac{N_X}{N}.$$
+$$\Sigma_X = f_X\thinspace\pi b_{\max}^2,\qquad f_X = \frac{N_X}{N}.$$
 
 ### 18.2 Sampling the impact parameter
 
@@ -1114,7 +1125,7 @@ $$r_{p,\max} = \max(10\thinspace r_{t,\rm bin},\ 8\thinspace r_g),\qquad b_{\max
 self-gravity, too weak to drive a μTDE. Doubling the cut from 5 to 10 and checking that the μTDE count converged is a
 **convergence test** of the kind recommended in Part 0.
 
-**Note:** the *fraction* $f_X$ depends on the arbitrary $b_{\max}$, but the *cross section* $\sigma_X = f_X\pi b_{\max}^2$
+**Note:** the *fraction* $f_X$ depends on the arbitrary $b_{\max}$, but the *cross section* $\Sigma_X = f_X\pi b_{\max}^2$
 doesn't, as long as $b_{\max}$ encloses all events.
 
 ### 18.4 Random orientations
@@ -1201,11 +1212,11 @@ then the fraction of the $b^2$-disk inside the critical pericentre $r_c = r_{t,\
 $$f_\mu = \frac{r_c^2+r_{\rm foc}r_c}{r_{p,\max}^2+r_{\rm foc}r_{p,\max}},\qquad\log_{10}\beta_{\rm crit} = c_0+c_1L+c_2L^2+c_3e+c_4e^2,\ \ L = \log_{10}\rho .$$
 
 In the strong-focusing limit this reduces to $f_\mu\approx1/(10\beta_{\rm crit})$, a function of $(a,e)$ alone, so $M_\bullet$ and
-$v_\infty$ enter only through $b_{\max}^2$ in $\sigma = f_\mu\pi b_{\max}^2$. The fitted coefficients live in `fmu_fit.json`. The
-fit's median accuracy is quoted in the notebook (about 0.1 dex).
+$v_\infty$ enter only through $b_{\max}^2$ in $\Sigma_\mu = f_\mu\pi b_{\max}^2$. The fitted coefficients live in `fmu_fit.json`. Here $r_{\rm TDE} = R_\star(m_{\rm BH1}/m_\star)^{1/3} = 0.0100$ AU.
+The fit reproduces the simulated $f_\mu$ with a median error of about 0.1 dex ($R^2 = 0.91$ on $\log_{10}f_\mu$).
 
 **Population averages** then weight over assumed distributions $p(a,e)$ of binaries in galactic nuclei (three regimes from
-Stone & Leigh), giving $\langle\sigma(M_\bullet,v)\rangle$ for the rate calculation.
+Stone & Leigh), giving $\langle\Sigma_\mu(M_\bullet,v)\rangle$ for the rate calculation.
 
 ---
 
@@ -1227,11 +1238,12 @@ Stone & Leigh), giving $\langle\sigma(M_\bullet,v)\rangle$ for the rate calculat
 | $r_{\rm foc}$ | focusing length $2GM/v_\infty^2$ | AU |
 | $r_{t,\rm bin}$ | binary tidal radius $a(M_\bullet/m_{\rm bin})^{1/3}$ | AU |
 | $\beta$ | penetration factor $r_{t,\rm bin}/r_p$ | — |
-| $r_t$, $r_{\rm TDE}$ | stellar tidal radius $R_\star(m/m_\star)^{1/3}$ | AU |
+| $r_t$, $r_{\rm TDE}$ | stellar tidal radius $R_\star(m_{\rm BH1}/m_\star)^{1/3}$ | AU |
 | $r_g$, $r_s$ | gravitational radius $GM/c^2$, Schwarzschild radius $2r_g$ | AU, km |
 | $\varepsilon$ | specific orbital energy | (km/s)², erg/g |
 | $h$ | specific angular momentum | AU km/s, cm²/s |
-| $\sigma_X$, $f_X$ | cross section, fraction of outcome $X$ | AU², pc² |
+| $\Sigma_X$, $f_X$ | cross section, fraction of outcome $X$ | AU², pc² |
+| $\sigma_v$ | velocity dispersion of the stars around the black hole | km/s |
 | $\Delta t_{\rm delay}$ | time between the two flares | yr |
 | $\Gamma$ | event rate per galaxy | yr⁻¹ |
 
@@ -1292,13 +1304,19 @@ Stone & Leigh), giving $\langle\sigma(M_\bullet,v)\rangle$ for the rate calculat
 - Mikkola, S. & Merritt, D. (2008), AJ 135, 2398. AR-chain with GBS extrapolation.
 - Hellström, C. & Mikkola, S. (2010), Celest. Mech. Dyn. Astron. 106, 143. Velocity-dependent forces in AR.
 - Pihajoki, P. (2015), Celest. Mech. Dyn. Astron. 121, 211. Extended phase space.
+- Dormand, J. R. & Prince, P. J. (1980), J. Comput. Appl. Math. 6, 19. Embedded Runge–Kutta pairs.
+- Wang, Y.-H., Leigh, N. W. C., Liu, B. & Perna, R. (2021), MNRAS 505, 1053. SpaceHub, the integrator used here.
 
 **This project**
 - Kritos, K. & Perna, R. (2026), *Tidally-Induced Coda: Double Transients from Black Hole–Star Binary Encounters with Massive Black Holes*, in preparation.
-- Yu, Y. & Lai, D. (2024). Star–star binary collisions near SMBHs (the comparison in `analysis/yulai2024/`).
+- Yu, F. & Lai, D. (2024), ApJ 977, 268. Binary stars approaching supermassive black holes: tidal break-up, double stellar disruptions and stellar collision (the comparison in `analysis/yulai2024/`).
 
 ## Appendix D: Changelog
 
+- **2026-11-22.** Corrected the km/AU factor (§1), the IMBH Schwarzschild radius, the surviving $e$ nodes at $a = 1$ AU,
+  and the focusing cross section in terms of $v_{\rm esc}$; the Hills ejection speed now includes $\beta$ and the companion
+  mass; added the $\Delta t_{\rm delay}$ fit and the $f_\mu$ fit accuracy; cross sections written $\Sigma$ (as in the figures),
+  $\sigma_v$ added to Appendix A; references to SpaceHub and Dormand & Prince added; Yu & Lai (2024) reference completed.
 - **2026-11-21 (c).** Replaced `\thickspace` and `\negthinspace`, which GitHub's math renderer doesn't support (the energy
   equation in §2.1, the PN expansion in §6.1 and the 1PN force in §16.6 showed errors).
 - **2026-11-21 (b).** Fixed equations that rendered incorrectly on GitHub. GitHub's Markdown escaping ate `\,` `\;` `\!` `\{` `\}`
