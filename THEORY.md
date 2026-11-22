@@ -171,7 +171,7 @@ don't change with time (Noether's theorem).
 
 For a body of mass $m$ moving at speed $v$ at distance $r$ from a point mass $M$:
 
-$$E = \underbrace{\tfrac12mv^2}_{\text{kinetic}} \thickspace\underbrace{-\thickspace\frac{GMm}{r}}_{\text{potential}} .$$
+$$E = \underbrace{\tfrac12mv^2}_{\text{kinetic}} \ \underbrace{-\ \frac{GMm}{r}}_{\text{potential}} .$$
 
 - **Kinetic energy** is energy of motion, always positive.
 - **Gravitational potential energy** is negative. The zero is chosen at infinite separation, and bringing bodies closer
@@ -411,7 +411,7 @@ $$\frac{v^2}{c^2}\sim\frac{GM}{rc^2} = \frac{r_g}{r}.$$
 
 The **post-Newtonian (PN) expansion** writes the acceleration as a power series in this small number:
 
-$$\mathbf a = \underbrace{\mathbf a_{\rm N}}_{\text{Newton}}\left[1 + \underbrace{O\negthinspace\left(\tfrac{v^2}{c^2}\right)}_{\rm 1PN} + \underbrace{O\negthinspace\left(\tfrac{v^4}{c^4}\right)}_{\rm 2PN} + \underbrace{O\negthinspace\left(\tfrac{v^5}{c^5}\right)}_{\rm 2.5PN} + \cdots\right].$$
+$$\mathbf a = \underbrace{\mathbf a_{\rm N}}_{\text{Newton}}\left[1 + \underbrace{O\left(\tfrac{v^2}{c^2}\right)}_{\rm 1PN} + \underbrace{O\left(\tfrac{v^4}{c^4}\right)}_{\rm 2PN} + \underbrace{O\left(\tfrac{v^5}{c^5}\right)}_{\rm 2.5PN} + \cdots\right].$$
 
 The "$n$PN" term is smaller than Newton by $(v/c)^{2n}$.
 
@@ -1005,7 +1005,7 @@ Here $y_i^{(k)}$ and $y_i^{(k-1)}$ are the last two extrapolated values of varia
 
 For example, the 1PN acceleration of body 1 due to body 2, with $\mathbf n = (\mathbf r_1-\mathbf r_2)/r$ and $\mathbf v_{12} = \mathbf v_1-\mathbf v_2$, is
 
-$$\mathbf a_1^{\rm 1PN} = \frac{Gm_2}{r^2c^2}\left\lbrace\left[-v_1^2-2v_2^2+4\thinspace\mathbf v_1\negthinspace\cdot\mathbf v_2+\tfrac32(\mathbf n\negthinspace\cdot\mathbf v_2)^2+\frac{5Gm_1}{r}+\frac{4Gm_2}{r}\right]\mathbf n+\left[4\thinspace\mathbf n\negthinspace\cdot\mathbf v_1-3\thinspace\mathbf n\negthinspace\cdot\mathbf v_2\right]\mathbf v_{12}\right\rbrace.$$
+$$\mathbf a_1^{\rm 1PN} = \frac{Gm_2}{r^2c^2}\left\lbrace\left[-v_1^2-2v_2^2+4\thinspace\mathbf v_1\cdot\mathbf v_2+\tfrac32(\mathbf n\cdot\mathbf v_2)^2+\frac{5Gm_1}{r}+\frac{4Gm_2}{r}\right]\mathbf n+\left[4\thinspace\mathbf n\cdot\mathbf v_1-3\thinspace\mathbf n\cdot\mathbf v_2\right]\mathbf v_{12}\right\rbrace.$$
 
 The 2.5PN (radiation-reaction) term has prefactor $\frac{8}{5}\frac{G^2m_1m_2}{r^3c^5}$, and is what removes orbital energy as gravitational waves.
 
@@ -1299,6 +1299,8 @@ Stone & Leigh), giving $\langle\sigma(M_\bullet,v)\rangle$ for the rate calculat
 
 ## Appendix D: Changelog
 
+- **2026-11-21 (c).** Replaced `\thickspace` and `\negthinspace`, which GitHub's math renderer doesn't support (the energy
+  equation in §2.1, the PN expansion in §6.1 and the 1PN force in §16.6 showed errors).
 - **2026-11-21 (b).** Fixed equations that rendered incorrectly on GitHub. GitHub's Markdown escaping ate `\,` `\;` `\!` `\{` `\}`
   and double-escaped `<` `>` inside math, so these are now written `\thinspace`, `\lbrace`, `\lt`, etc. Display equations
   inside list items, or directly against text, were moved onto their own lines.
