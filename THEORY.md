@@ -1308,7 +1308,7 @@ Stone & Leigh), giving $\langle\Sigma_\mu(M_\bullet,v)\rangle$ for the rate calc
 - Wang, Y.-H., Leigh, N. W. C., Liu, B. & Perna, R. (2021), MNRAS 505, 1053. SpaceHub, the integrator used here.
 
 **This project**
-- Kritos, K. & Perna, R. (2026), *Tidally-Induced Coda: Double Transients from Black Hole–Star Binary Encounters with Massive Black Holes*, in preparation.
+- Kritos, K. & Perna, R. (2026), *Tidally Induced Coda: Double Transients from Black Hole–Star Binary Encounters with Massive Black Holes*, in preparation.
 - Yu, F. & Lai, D. (2024), ApJ 977, 268. Binary stars approaching supermassive black holes: tidal break-up, double stellar disruptions and stellar collision (the comparison in `analysis/yulai2024/`).
 
 ## Appendix D: Changelog

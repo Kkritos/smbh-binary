@@ -6,7 +6,7 @@ a git tag `vX.Y.Z`.
 
 ## [1.0.0] — unreleased
 
-First public release, accompanying Kritos & Perna (2026), *Tidally-Induced Coda: Double Transients from Black Hole-Star Binary Encounters with Massive Black Holes*.
+First public release, accompanying Kritos & Perna (2026), *Tidally Induced Coda: Double Transients from Black Hole–Star Binary Encounters with Massive Black Holes*.
 
 - Three-body code `simulation/smbh_binary.cpp` (SpaceHub, 1PN + 2PN + 2.5PN), built against
   SpaceHub commit `190777d6`.

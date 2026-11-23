@@ -29,7 +29,7 @@ identifiers:
     description: "Simulation data (Zenodo)"
 preferred-citation:
   type: article
-  title: "Tidally-Induced Coda: Double Transients from Black Hole-Star Binary Encounters with Massive Black Holes"
+  title: "Tidally Induced Coda: Double Transients from Black Hole–Star Binary Encounters with Massive Black Holes"
   year: 2026
   authors:
     - family-names: Kritos
